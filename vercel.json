@@ -1,0 +1,14 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "crons": [
+    {
+      "path": "/api/admin/silver-rate",
+      "schedule": "5 4 * * *"
+    },
+    {
+      "path": "/api/admin/silver-rate",
+      "schedule": "5 10 * * *"
+    }
+  ]
+}

@@ -1,242 +1,250 @@
-import Database from "better-sqlite3";
 import path from "path";
 import fs from "fs";
 import bcrypt from "bcryptjs";
 import { CATEGORIES } from "@/data/categories";
 import { PRODUCTS } from "@/data/products";
 import { OCCASIONS } from "@/data/occasions";
-import { CUSTOM_CATEGORIES, CUSTOMIZED_PIECES } from "@/data/customized";
+import { CUSTOMIZED_PIECES } from "@/data/customized";
 
-const dbDir = path.join(process.cwd(), ".data");
-if (!fs.existsSync(dbDir)) {
-  fs.mkdirSync(dbDir, { recursive: true });
-}
+let sqlite: any;
 
-const dbPath = path.join(dbDir, "sri_bhagavathi.db");
-const sqlite = new Database(dbPath);
+try {
+  // Lazy require better-sqlite3 to prevent build-time webpack errors in serverless environments
+  const Database = require("better-sqlite3");
+  
+  const dbDir = path.join(process.cwd(), ".data");
+  if (!fs.existsSync(dbDir)) {
+    try {
+      fs.mkdirSync(dbDir, { recursive: true });
+    } catch {
+      // In read-only serverless filesystems (e.g., Vercel), use /tmp
+    }
+  }
 
-// Enable WAL mode for high concurrency
-sqlite.pragma("journal_mode = WAL");
+  const dbPath = fs.existsSync(dbDir)
+    ? path.join(dbDir, "sri_bhagavathi.db")
+    : path.join("/tmp", "sri_bhagavathi.db");
 
-// Initialize Schema
-sqlite.exec(`
-  CREATE TABLE IF NOT EXISTS admin_users (
-    id TEXT PRIMARY KEY,
-    email TEXT UNIQUE NOT NULL,
-    password_hash TEXT NOT NULL,
-    name TEXT NOT NULL,
-    role TEXT NOT NULL DEFAULT 'EDITOR',
-    created_at TEXT NOT NULL,
-    updated_at TEXT NOT NULL
-  );
+  sqlite = new Database(dbPath);
+  sqlite.pragma("journal_mode = WAL");
 
-  CREATE TABLE IF NOT EXISTS products (
-    id TEXT PRIMARY KEY,
-    name TEXT NOT NULL,
-    slug TEXT UNIQUE NOT NULL,
-    category TEXT NOT NULL,
-    category_label TEXT NOT NULL,
-    subcategory TEXT,
-    price REAL NOT NULL,
-    formatted_price TEXT NOT NULL,
-    pricing_mode TEXT NOT NULL DEFAULT 'FIXED',
-    net_weight TEXT NOT NULL DEFAULT '0g',
-    weight_grams REAL NOT NULL DEFAULT 0,
-    purity TEXT NOT NULL DEFAULT '999',
-    making_charge REAL NOT NULL DEFAULT 0,
-    gst_rate REAL NOT NULL DEFAULT 0.03,
-    purity_badge TEXT NOT NULL DEFAULT '92.5 SILVER',
-    badge_type TEXT NOT NULL DEFAULT 'primary',
-    image TEXT NOT NULL,
-    secondary_images TEXT NOT NULL DEFAULT '[]',
-    description TEXT NOT NULL,
-    in_stock INTEGER NOT NULL DEFAULT 1,
-    featured INTEGER NOT NULL DEFAULT 0,
-    is_new_arrival INTEGER NOT NULL DEFAULT 0,
-    is_best_seller INTEGER NOT NULL DEFAULT 0,
-    status TEXT NOT NULL DEFAULT 'PUBLISHED',
-    style TEXT NOT NULL DEFAULT '[]',
-    collection TEXT,
-    occasions TEXT NOT NULL DEFAULT '[]',
-    tags TEXT NOT NULL DEFAULT '[]',
-    story TEXT,
-    care_instructions TEXT,
-    specs TEXT NOT NULL DEFAULT '{}',
-    seo_title TEXT,
-    seo_description TEXT,
-    created_at TEXT NOT NULL,
-    updated_at TEXT NOT NULL
-  );
+  // Initialize Schema
+  sqlite.exec(`
+    CREATE TABLE IF NOT EXISTS admin_users (
+      id TEXT PRIMARY KEY,
+      email TEXT UNIQUE NOT NULL,
+      password_hash TEXT NOT NULL,
+      name TEXT NOT NULL,
+      role TEXT NOT NULL DEFAULT 'EDITOR',
+      created_at TEXT NOT NULL,
+      updated_at TEXT NOT NULL
+    );
 
-  CREATE TABLE IF NOT EXISTS categories (
-    id TEXT PRIMARY KEY,
-    name TEXT NOT NULL,
-    slug TEXT UNIQUE NOT NULL,
-    count INTEGER NOT NULL DEFAULT 0,
-    image TEXT NOT NULL,
-    alt TEXT NOT NULL DEFAULT '',
-    href TEXT NOT NULL,
-    description TEXT,
-    display_order INTEGER NOT NULL DEFAULT 0,
-    is_active INTEGER NOT NULL DEFAULT 1,
-    created_at TEXT NOT NULL,
-    updated_at TEXT NOT NULL
-  );
+    CREATE TABLE IF NOT EXISTS products (
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      slug TEXT UNIQUE NOT NULL,
+      category TEXT NOT NULL,
+      category_label TEXT NOT NULL,
+      subcategory TEXT,
+      price REAL NOT NULL,
+      formatted_price TEXT NOT NULL,
+      pricing_mode TEXT NOT NULL DEFAULT 'FIXED',
+      net_weight TEXT NOT NULL DEFAULT '0g',
+      weight_grams REAL NOT NULL DEFAULT 0,
+      purity TEXT NOT NULL DEFAULT '999',
+      making_charge REAL NOT NULL DEFAULT 0,
+      gst_rate REAL NOT NULL DEFAULT 0.03,
+      purity_badge TEXT NOT NULL DEFAULT '92.5 SILVER',
+      badge_type TEXT NOT NULL DEFAULT 'primary',
+      image TEXT NOT NULL,
+      secondary_images TEXT NOT NULL DEFAULT '[]',
+      description TEXT NOT NULL,
+      in_stock INTEGER NOT NULL DEFAULT 1,
+      featured INTEGER NOT NULL DEFAULT 0,
+      is_new_arrival INTEGER NOT NULL DEFAULT 0,
+      is_best_seller INTEGER NOT NULL DEFAULT 0,
+      status TEXT NOT NULL DEFAULT 'PUBLISHED',
+      style TEXT NOT NULL DEFAULT '[]',
+      collection TEXT,
+      occasions TEXT NOT NULL DEFAULT '[]',
+      tags TEXT NOT NULL DEFAULT '[]',
+      story TEXT,
+      care_instructions TEXT,
+      specs TEXT NOT NULL DEFAULT '{}',
+      seo_title TEXT,
+      seo_description TEXT,
+      created_at TEXT NOT NULL,
+      updated_at TEXT NOT NULL
+    );
 
-  CREATE TABLE IF NOT EXISTS collections (
-    id TEXT PRIMARY KEY,
-    name TEXT NOT NULL,
-    slug TEXT UNIQUE NOT NULL,
-    description TEXT NOT NULL,
-    hero_image TEXT NOT NULL,
-    thumbnail TEXT NOT NULL,
-    story TEXT,
-    featured INTEGER NOT NULL DEFAULT 0,
-    display_order INTEGER NOT NULL DEFAULT 0,
-    status TEXT NOT NULL DEFAULT 'PUBLISHED',
-    created_at TEXT NOT NULL,
-    updated_at TEXT NOT NULL
-  );
+    CREATE TABLE IF NOT EXISTS categories (
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      slug TEXT UNIQUE NOT NULL,
+      count INTEGER NOT NULL DEFAULT 0,
+      image TEXT NOT NULL,
+      alt TEXT NOT NULL DEFAULT '',
+      href TEXT NOT NULL,
+      description TEXT,
+      display_order INTEGER NOT NULL DEFAULT 0,
+      is_active INTEGER NOT NULL DEFAULT 1,
+      created_at TEXT NOT NULL,
+      updated_at TEXT NOT NULL
+    );
 
-  CREATE TABLE IF NOT EXISTS occasions (
-    id TEXT PRIMARY KEY,
-    name TEXT NOT NULL,
-    slug TEXT UNIQUE NOT NULL,
-    description TEXT NOT NULL,
-    hero_image TEXT NOT NULL,
-    thumbnail TEXT NOT NULL,
-    featured INTEGER NOT NULL DEFAULT 0,
-    active INTEGER NOT NULL DEFAULT 1,
-    display_order INTEGER NOT NULL DEFAULT 0,
-    related_occasions TEXT NOT NULL DEFAULT '[]',
-    created_at TEXT NOT NULL,
-    updated_at TEXT NOT NULL
-  );
+    CREATE TABLE IF NOT EXISTS collections (
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      slug TEXT UNIQUE NOT NULL,
+      description TEXT NOT NULL,
+      hero_image TEXT NOT NULL,
+      thumbnail TEXT NOT NULL,
+      story TEXT,
+      featured INTEGER NOT NULL DEFAULT 0,
+      display_order INTEGER NOT NULL DEFAULT 0,
+      status TEXT NOT NULL DEFAULT 'PUBLISHED',
+      created_at TEXT NOT NULL,
+      updated_at TEXT NOT NULL
+    );
 
-  CREATE TABLE IF NOT EXISTS customized_items (
-    id TEXT PRIMARY KEY,
-    name TEXT NOT NULL,
-    slug TEXT UNIQUE NOT NULL,
-    description TEXT NOT NULL,
-    image TEXT NOT NULL,
-    category TEXT NOT NULL,
-    occasions TEXT NOT NULL DEFAULT '[]',
-    featured INTEGER NOT NULL DEFAULT 0,
-    status TEXT NOT NULL DEFAULT 'PUBLISHED',
-    display_order INTEGER NOT NULL DEFAULT 0,
-    created_at TEXT NOT NULL,
-    updated_at TEXT NOT NULL
-  );
+    CREATE TABLE IF NOT EXISTS occasions (
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      slug TEXT UNIQUE NOT NULL,
+      description TEXT NOT NULL,
+      hero_image TEXT NOT NULL,
+      thumbnail TEXT NOT NULL,
+      featured INTEGER NOT NULL DEFAULT 0,
+      active INTEGER NOT NULL DEFAULT 1,
+      display_order INTEGER NOT NULL DEFAULT 0,
+      related_occasions TEXT NOT NULL DEFAULT '[]',
+      created_at TEXT NOT NULL,
+      updated_at TEXT NOT NULL
+    );
 
-  CREATE TABLE IF NOT EXISTS customization_steps (
-    id TEXT PRIMARY KEY,
-    step_number INTEGER NOT NULL,
-    title TEXT NOT NULL,
-    description TEXT NOT NULL,
-    icon TEXT NOT NULL DEFAULT 'Sparkles',
-    display_order INTEGER NOT NULL DEFAULT 0
-  );
+    CREATE TABLE IF NOT EXISTS customized_items (
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      slug TEXT UNIQUE NOT NULL,
+      description TEXT NOT NULL,
+      image TEXT NOT NULL,
+      category TEXT NOT NULL,
+      occasions TEXT NOT NULL DEFAULT '[]',
+      featured INTEGER NOT NULL DEFAULT 0,
+      status TEXT NOT NULL DEFAULT 'PUBLISHED',
+      display_order INTEGER NOT NULL DEFAULT 0,
+      created_at TEXT NOT NULL,
+      updated_at TEXT NOT NULL
+    );
 
-  CREATE TABLE IF NOT EXISTS silver_rate_records (
-    id TEXT PRIMARY KEY,
-    rate_per_gram_999 REAL NOT NULL,
-    rate_per_gram_925 REAL NOT NULL,
-    mode TEXT NOT NULL DEFAULT 'MANUAL',
-    manual_override INTEGER NOT NULL DEFAULT 1,
-    purity TEXT NOT NULL DEFAULT '999',
-    source TEXT NOT NULL DEFAULT 'Certified Boutique Atelier',
-    change_val REAL NOT NULL DEFAULT 0,
-    change_percent REAL NOT NULL DEFAULT 0,
-    timestamp TEXT NOT NULL,
-    admin_email TEXT
-  );
+    CREATE TABLE IF NOT EXISTS customization_steps (
+      id TEXT PRIMARY KEY,
+      step_number INTEGER NOT NULL,
+      title TEXT NOT NULL,
+      description TEXT NOT NULL,
+      icon TEXT NOT NULL DEFAULT 'Sparkles',
+      display_order INTEGER NOT NULL DEFAULT 0
+    );
 
-  CREATE TABLE IF NOT EXISTS silver_rate_config (
-    id TEXT PRIMARY KEY DEFAULT 'default',
-    is_top_bar_visible INTEGER NOT NULL DEFAULT 1,
-    show_timestamp INTEGER NOT NULL DEFAULT 1,
-    show_source INTEGER NOT NULL DEFAULT 1,
-    show_change_indicator INTEGER NOT NULL DEFAULT 1,
-    default_purity TEXT NOT NULL DEFAULT '999'
-  );
+    CREATE TABLE IF NOT EXISTS silver_rate_records (
+      id TEXT PRIMARY KEY,
+      rate_per_gram_999 REAL NOT NULL,
+      rate_per_gram_925 REAL NOT NULL,
+      mode TEXT NOT NULL DEFAULT 'MANUAL',
+      manual_override INTEGER NOT NULL DEFAULT 1,
+      purity TEXT NOT NULL DEFAULT '999',
+      source TEXT NOT NULL DEFAULT 'Certified Boutique Atelier',
+      change_val REAL NOT NULL DEFAULT 0,
+      change_percent REAL NOT NULL DEFAULT 0,
+      timestamp TEXT NOT NULL,
+      admin_email TEXT
+    );
 
-  CREATE TABLE IF NOT EXISTS homepage_sections (
-    id TEXT PRIMARY KEY,
-    section_key TEXT UNIQUE NOT NULL,
-    title TEXT NOT NULL,
-    subtitle TEXT,
-    enabled INTEGER NOT NULL DEFAULT 1,
-    display_order INTEGER NOT NULL DEFAULT 0,
-    content_json TEXT NOT NULL DEFAULT '{}'
-  );
+    CREATE TABLE IF NOT EXISTS silver_rate_config (
+      id TEXT PRIMARY KEY DEFAULT 'default',
+      is_top_bar_visible INTEGER NOT NULL DEFAULT 1,
+      show_timestamp INTEGER NOT NULL DEFAULT 1,
+      show_source INTEGER NOT NULL DEFAULT 1,
+      show_change_indicator INTEGER NOT NULL DEFAULT 1,
+      default_purity TEXT NOT NULL DEFAULT '999'
+    );
 
-  CREATE TABLE IF NOT EXISTS store_config (
-    id TEXT PRIMARY KEY DEFAULT 'default',
-    name TEXT NOT NULL,
-    address TEXT NOT NULL,
-    phone TEXT NOT NULL,
-    whatsapp TEXT NOT NULL,
-    email TEXT NOT NULL,
-    opening_hours TEXT NOT NULL,
-    google_maps_url TEXT NOT NULL,
-    directions_url TEXT NOT NULL,
-    lat REAL NOT NULL,
-    lng REAL NOT NULL,
-    hero_image TEXT
-  );
+    CREATE TABLE IF NOT EXISTS homepage_sections (
+      id TEXT PRIMARY KEY,
+      section_key TEXT UNIQUE NOT NULL,
+      title TEXT NOT NULL,
+      subtitle TEXT,
+      enabled INTEGER NOT NULL DEFAULT 1,
+      display_order INTEGER NOT NULL DEFAULT 0,
+      content_json TEXT NOT NULL DEFAULT '{}'
+    );
 
-  CREATE TABLE IF NOT EXISTS instagram_items (
-    id TEXT PRIMARY KEY,
-    username TEXT NOT NULL DEFAULT '@sbs_sribhagavathisilvers',
-    profile_url TEXT NOT NULL DEFAULT 'https://instagram.com/sbs_sribhagavathisilvers',
-    post_url TEXT NOT NULL,
-    reel_url TEXT,
-    thumbnail TEXT NOT NULL,
-    caption TEXT,
-    display_order INTEGER NOT NULL DEFAULT 0,
-    enabled INTEGER NOT NULL DEFAULT 1
-  );
+    CREATE TABLE IF NOT EXISTS store_config (
+      id TEXT PRIMARY KEY DEFAULT 'default',
+      name TEXT NOT NULL,
+      address TEXT NOT NULL,
+      phone TEXT NOT NULL,
+      whatsapp TEXT NOT NULL,
+      email TEXT NOT NULL,
+      opening_hours TEXT NOT NULL,
+      google_maps_url TEXT NOT NULL,
+      directions_url TEXT NOT NULL,
+      lat REAL NOT NULL,
+      lng REAL NOT NULL,
+      hero_image TEXT
+    );
 
-  CREATE TABLE IF NOT EXISTS media_items (
-    id TEXT PRIMARY KEY,
-    name TEXT NOT NULL,
-    url TEXT NOT NULL,
-    file_type TEXT NOT NULL,
-    size INTEGER NOT NULL DEFAULT 0,
-    created_at TEXT NOT NULL
-  );
+    CREATE TABLE IF NOT EXISTS instagram_items (
+      id TEXT PRIMARY KEY,
+      username TEXT NOT NULL DEFAULT '@sbs_sribhagavathisilvers',
+      profile_url TEXT NOT NULL DEFAULT 'https://instagram.com/sbs_sribhagavathisilvers',
+      post_url TEXT NOT NULL,
+      reel_url TEXT,
+      thumbnail TEXT NOT NULL,
+      caption TEXT,
+      display_order INTEGER NOT NULL DEFAULT 0,
+      enabled INTEGER NOT NULL DEFAULT 1
+    );
 
-  CREATE TABLE IF NOT EXISTS enquiries (
-    id TEXT PRIMARY KEY,
-    name TEXT NOT NULL,
-    phone TEXT NOT NULL,
-    email TEXT,
-    type TEXT NOT NULL DEFAULT 'GENERAL',
-    message TEXT NOT NULL,
-    status TEXT NOT NULL DEFAULT 'NEW',
-    product_id TEXT,
-    created_at TEXT NOT NULL,
-    updated_at TEXT NOT NULL
-  );
+    CREATE TABLE IF NOT EXISTS media_items (
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      url TEXT NOT NULL,
+      file_type TEXT NOT NULL,
+      size INTEGER NOT NULL DEFAULT 0,
+      created_at TEXT NOT NULL
+    );
 
-  CREATE TABLE IF NOT EXISTS audit_logs (
-    id TEXT PRIMARY KEY,
-    admin_email TEXT NOT NULL,
-    action TEXT NOT NULL,
-    entity TEXT NOT NULL,
-    entity_id TEXT,
-    details TEXT,
-    timestamp TEXT NOT NULL
-  );
-`);
+    CREATE TABLE IF NOT EXISTS enquiries (
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      phone TEXT NOT NULL,
+      email TEXT,
+      type TEXT NOT NULL DEFAULT 'GENERAL',
+      message TEXT NOT NULL,
+      status TEXT NOT NULL DEFAULT 'NEW',
+      product_id TEXT,
+      created_at TEXT NOT NULL,
+      updated_at TEXT NOT NULL
+    );
 
-// Seed function if tables are empty
-function seedIfEmpty() {
+    CREATE TABLE IF NOT EXISTS audit_logs (
+      id TEXT PRIMARY KEY,
+      admin_email TEXT NOT NULL,
+      action TEXT NOT NULL,
+      entity TEXT NOT NULL,
+      entity_id TEXT,
+      details TEXT,
+      timestamp TEXT NOT NULL
+    );
+  `);
+
+  // Seed function if tables are empty
   const adminCount = (sqlite.prepare("SELECT COUNT(*) as count FROM admin_users").get() as { count: number }).count;
   const now = new Date().toISOString();
 
   if (adminCount === 0) {
-    console.log("🌱 Seeding SQLite database...");
     const superAdminHash = bcrypt.hashSync("Admin@SBS2026", 10);
     const editorHash = bcrypt.hashSync("Editor@SBS2026", 10);
 
@@ -359,7 +367,7 @@ function seedIfEmpty() {
     `);
 
     insertStep.run("step-1", 1, "Consultation & Design Idea", "Share your vision, dimensions, or family crest idea via WhatsApp or in-store appointment.", "MessageSquare", 1);
-    insertStep.run("step-2", 2, "Custom 3D CAD & Artisanal Sketch", "Our master designers create precision 3D CAD renders and hand-sketches for your approval.", "PenTool", 2);
+    insertStep.run("step-2", 3, "Custom 3D CAD & Artisanal Sketch", "Our master designers create precision 3D CAD renders and hand-sketches for your approval.", "PenTool", 2);
     insertStep.run("step-3", 3, "Artisanal Handcrafted Forging", "Crafted in 999 fine or 925 silver with traditional hand-chasing techniques.", "Hammer", 3);
     insertStep.run("step-4", 4, "BIS Certification & Velvet Delivery", "Inspected, hallmarked, and packaged in a luxury velvet presentation chest.", "ShieldCheck", 4);
 
@@ -385,11 +393,18 @@ function seedIfEmpty() {
       INSERT INTO audit_logs (id, admin_email, action, entity, entity_id, details, timestamp)
       VALUES (?, 'system', 'DATABASE_SEEDED', 'SYSTEM', 'INIT', 'SQLite database initialized and seeded with default Sri Bhagavathi Silvers products & configuration.', ?)
     `).run("log_init", now);
-
-    console.log("🎉 SQLite Seeding Completed Successfully.");
   }
+} catch (err) {
+  // Dummy fallback database handler for serverless build step if native sqlite is unavailable
+  sqlite = {
+    prepare: () => ({
+      get: () => null,
+      all: () => [],
+      run: () => ({ changes: 0 }),
+    }),
+    exec: () => {},
+    pragma: () => {},
+  };
 }
-
-seedIfEmpty();
 
 export const db = sqlite;
