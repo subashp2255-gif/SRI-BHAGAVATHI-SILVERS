@@ -1,0 +1,200 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --background: #fbf9f4;
+    --surface: #fbf9f4;
+    --surface-container-lowest: #ffffff;
+    --surface-container-low: #f5f3ee;
+    --surface-container: #f0eee9;
+    --surface-container-high: #eae8e3;
+    --surface-container-highest: #e4e2dd;
+    --primary: #010101;
+    --on-primary: #ffffff;
+    --secondary: #725b38;
+    --secondary-container: #fedeb2;
+    --on-surface: #1b1c19;
+    --on-surface-variant: #444748;
+    --outline: #747878;
+    --outline-variant: #c4c7c7;
+    --gold-accent: #c5a880;
+    --silver-hairline: #e8e8e8;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    overflow-x: clip;
+  }
+
+  body {
+    background-color: var(--surface);
+    color: var(--on-surface);
+    font-family: var(--font-jakarta), 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+}
+
+/* Touch Target Minimum & Scrollbar Utilities */
+.touch-target {
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f5f3ee;
+}
+::-webkit-scrollbar-thumb {
+  background: #c5a880;
+  border-radius: 0px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #725b38;
+}
+
+/* Custom Typography Helpers matching Stitch system */
+.font-serif-luxury {
+  font-family: var(--font-playfair), 'Playfair Display', Georgia, serif;
+}
+
+.font-sans-editorial {
+  font-family: var(--font-jakarta), 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Watermark Background Editorial Typography */
+.watermark-editorial {
+  font-family: var(--font-playfair), 'Playfair Display', serif;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  user-select: none;
+  pointer-events: none;
+  color: rgba(1, 1, 1, 0.035);
+  line-height: 0.85;
+}
+
+.watermark-editorial-dark {
+  font-family: var(--font-playfair), 'Playfair Display', serif;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  user-select: none;
+  pointer-events: none;
+  color: rgba(255, 255, 255, 0.04);
+  line-height: 0.85;
+}
+
+/* Glassmorphism Classes */
+.glass-panel {
+  background: rgba(251, 249, 244, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(224, 220, 211, 0.6);
+}
+
+.glass-panel-dark {
+  background: rgba(1, 1, 1, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Hairline borders & silver reflections */
+.hairline-border {
+  border: 1px solid #e8e8e8;
+}
+
+.hairline-border-gold {
+  border: 1px solid #c5a880;
+}
+
+/* Metallic Silver Light Reflection Sheen (Prompt Rule 4) */
+.metallic-sheen {
+  position: relative;
+  overflow: hidden;
+}
+.metallic-sheen::after {
+  content: "";
+  position: absolute;
+  top: -100%;
+  left: -150%;
+  width: 70%;
+  height: 300%;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.03) 30%,
+    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0.03) 70%,
+    transparent 100%
+  );
+  transform: rotate(20deg);
+  transition: transform 0.8s ease-in-out;
+  pointer-events: none;
+  z-index: 10;
+}
+.metallic-sheen:hover::after {
+  transform: translateX(450%) rotate(20deg);
+}
+
+/* Premium Light-Sweep CTA Button Effect */
+.btn-light-sweep {
+  position: relative;
+  overflow: hidden;
+}
+.btn-light-sweep::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.25) 50%,
+    transparent 100%
+  );
+  transform: rotate(25deg);
+  transition: all 0.6s ease;
+  pointer-events: none;
+}
+.btn-light-sweep:hover::after {
+  left: 120%;
+}
+
+/* Desktop Custom Cursor Hide Native Pointer */
+@media (min-width: 1024px) {
+  .custom-cursor-active a,
+  .custom-cursor-active button,
+  .custom-cursor-active [data-cursor] {
+    cursor: none !important;
+  }
+}
+
+/* Accessibility: Prefers Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

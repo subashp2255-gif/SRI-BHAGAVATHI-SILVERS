@@ -1,0 +1,225 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         String   @default("EDITOR") // SUPER_ADMIN, EDITOR
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Product {
+  id               String   @id @default(cuid())
+  name             String
+  slug             String   @unique
+  category         String
+  categoryLabel    String
+  subcategory      String?
+  price            Float
+  formattedPrice   String
+  pricingMode      String   @default("FIXED") // FIXED, RATE_BASED
+  netWeight        String   @default("0g")
+  weightGrams      Float    @default(0)
+  purity           String   @default("999")
+  makingCharge     Float    @default(0)
+  gstRate          Float    @default(0.03)
+  purityBadge      String   @default("92.5 SILVER")
+  badgeType        String   @default("primary")
+  image            String
+  secondaryImages  String   @default("[]") // JSON string
+  description      String
+  inStock          Boolean  @default(true)
+  featured         Boolean  @default(false)
+  isNewArrival     Boolean  @default(false)
+  isBestSeller     Boolean  @default(false)
+  status           String   @default("PUBLISHED") // DRAFT, PUBLISHED, ARCHIVED
+  style            String   @default("[]") // JSON string
+  collection       String?
+  occasions        String   @default("[]") // JSON string
+  tags             String   @default("[]") // JSON string
+  story            String?
+  careInstructions String?
+  specs            String   @default("{}") // JSON string
+  seoTitle         String?
+  seoDescription   String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model Category {
+  id           String   @id
+  name         String
+  slug         String   @unique
+  count        Int      @default(0)
+  image        String
+  alt          String   @default("")
+  href         String
+  description  String?
+  displayOrder Int      @default(0)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Collection {
+  id           String   @id
+  name         String
+  slug         String   @unique
+  description  String
+  heroImage    String
+  thumbnail    String
+  story        String?
+  featured     Boolean  @default(false)
+  displayOrder Int      @default(0)
+  status       String   @default("PUBLISHED")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Occasion {
+  id               String   @id
+  name             String
+  slug             String   @unique
+  description      String
+  heroImage        String
+  thumbnail        String
+  featured         Boolean  @default(false)
+  active           Boolean  @default(true)
+  displayOrder     Int      @default(0)
+  relatedOccasions String   @default("[]") // JSON string
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model CustomizedItem {
+  id           String   @id @default(cuid())
+  name         String
+  slug         String   @unique
+  description  String
+  image        String
+  category     String
+  occasions    String   @default("[]") // JSON string
+  featured     Boolean  @default(false)
+  status       String   @default("PUBLISHED")
+  displayOrder Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model CustomizationStep {
+  id           String @id @default(cuid())
+  stepNumber   Int
+  title        String
+  description  String
+  icon         String @default("Sparkles")
+  displayOrder Int    @default(0)
+}
+
+model SilverRateRecord {
+  id              String   @id @default(cuid())
+  ratePerGram999  Float
+  ratePerGram925  Float
+  mode            String   @default("MANUAL") // MANUAL, API
+  manualOverride  Boolean  @default(true)
+  purity          String   @default("999")
+  source          String   @default("Certified Boutique Atelier")
+  change          Float    @default(0)
+  changePercent   Float    @default(0)
+  timestamp       DateTime @default(now())
+  adminEmail      String?
+}
+
+model SilverRateConfig {
+  id                  String  @id @default("default")
+  isTopBarVisible     Boolean @default(true)
+  showTimestamp       Boolean @default(true)
+  showSource          Boolean @default(true)
+  showChangeIndicator Boolean @default(true)
+  defaultPurity       String  @default("999")
+}
+
+model HomepageSection {
+  id           String  @id
+  sectionKey   String  @unique
+  title        String
+  subtitle     String?
+  enabled      Boolean @default(true)
+  displayOrder Int     @default(0)
+  contentJson  String  @default("{}")
+}
+
+model NavigationItem {
+  id           String  @id @default(cuid())
+  label        String
+  path         String
+  active       Boolean @default(true)
+  displayOrder Int     @default(0)
+}
+
+model StoreConfig {
+  id            String @id @default("default")
+  name          String @default("Sri Bhagavathi Silvers")
+  address       String @default("No. 12, Main Road, City")
+  phone         String @default("+91 98765 43210")
+  whatsapp      String @default("+91 98765 43210")
+  email         String @default("contact@sribhagavathisilvers.com")
+  openingHours  String @default("Mon - Sat: 10:00 AM - 8:30 PM, Sun: Closed")
+  googleMapsUrl String @default("https://maps.google.com")
+  directionsUrl String @default("https://maps.google.com")
+  lat           Float  @default(13.0827)
+  lng           Float  @default(80.2707)
+  heroImage     String @default("")
+}
+
+model InstagramItem {
+  id           String  @id @default(cuid())
+  username     String  @default("@sbs_sribhagavathisilvers")
+  profileUrl   String  @default("https://instagram.com/sbs_sribhagavathisilvers")
+  postUrl      String
+  reelUrl      String?
+  thumbnail    String
+  caption      String?
+  displayOrder Int     @default(0)
+  enabled      Boolean @default(true)
+}
+
+model MediaItem {
+  id        String   @id @default(cuid())
+  name      String
+  url       String
+  fileType  String
+  size      Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model Enquiry {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String
+  email     String?
+  type      String   @default("GENERAL") // CUSTOMIZED, GENERAL, PRODUCT
+  message   String
+  status    String   @default("NEW") // NEW, IN_PROGRESS, RESOLVED
+  productId String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  adminEmail String
+  action     String
+  entity     String
+  entityId   String?
+  details    String?
+  timestamp  DateTime @default(now())
+}
