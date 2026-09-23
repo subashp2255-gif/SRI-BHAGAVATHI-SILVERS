@@ -1,6 +1,13 @@
 {
-  "framework": "nextjs",
-  "buildCommand": "npm run build",
+  "services": {
+    "frontend": {
+      "root": ".",
+      "framework": "nextjs"
+    },
+    "backend": {
+      "root": "backend"
+    }
+  },
   "crons": [
     {
       "path": "/api/admin/silver-rate",
@@ -9,6 +16,29 @@
     {
       "path": "/api/admin/silver-rate",
       "schedule": "5 10 * * *"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/backend/(.*)",
+      "destination": {
+        "type": "service",
+        "service": "backend"
+      }
+    },
+    {
+      "source": "/rates",
+      "destination": {
+        "type": "service",
+        "service": "backend"
+      }
+    },
+    {
+      "source": "/(.*)",
+      "destination": {
+        "type": "service",
+        "service": "frontend"
+      }
     }
   ]
 }
