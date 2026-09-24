@@ -143,7 +143,7 @@ export function Navbar({
           </Link>
 
           {/* Desktop Navigation Header */}
-          <nav className="hidden xl:flex items-center gap-7 relative">
+          <nav className="hidden xl:flex items-center gap-4 xl:gap-6 relative whitespace-nowrap">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               if (link.hasMega) {
@@ -156,7 +156,7 @@ export function Navbar({
                   >
                     <Link
                       href={link.href}
-                      className={`font-sans-editorial text-[12px] uppercase tracking-[0.18em] transition-colors flex items-center gap-1 py-1 ${
+                      className={`font-sans-editorial text-[12px] uppercase tracking-[0.18em] transition-colors flex items-center gap-1 py-1 whitespace-nowrap ${
                         shopMegaOpen || isActive ? "text-[#010101] font-bold" : "text-[#444748] hover:text-[#010101]"
                       }`}
                     >
@@ -291,7 +291,7 @@ export function Navbar({
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`font-sans-editorial text-[12px] uppercase tracking-[0.18em] transition-colors relative py-1 ${
+                  className={`font-sans-editorial text-[12px] uppercase tracking-[0.18em] transition-colors relative py-1 whitespace-nowrap ${
                     isActive ? "text-[#010101] font-bold" : "text-[#444748] hover:text-[#010101]"
                   }`}
                 >

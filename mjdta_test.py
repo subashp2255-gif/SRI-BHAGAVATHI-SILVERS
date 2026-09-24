@@ -6,7 +6,6 @@ with open("mjdta.html", "r", encoding="utf-8") as file:
 soup = BeautifulSoup(html, "html.parser")
 
 text = soup.get_text(" ", strip=True)
-
 for keyword in [
     "1 Gm Gold 22Kt",
     "1 Gm Gold 18Kt",
