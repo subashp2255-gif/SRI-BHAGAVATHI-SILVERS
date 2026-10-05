@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Layers, Plus, Edit, Image as ImageIcon } from "lucide-react";
+import ImageUploadDropzone from "@/components/admin/ImageUploadDropzone";
 
 export default function AdminCollectionsPage() {
   const [collections, setCollections] = useState<any[]>([]);
@@ -153,14 +154,12 @@ export default function AdminCollectionsPage() {
             </div>
 
             <div>
-              <label className="block text-xs text-slate-300 mb-1">Hero Image URL *</label>
-              <input
-                type="text"
-                required
+              <ImageUploadDropzone
+                label="Hero Image"
                 value={heroImage}
-                onChange={(e) => setHeroImage(e.target.value)}
-                placeholder="https://..."
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white"
+                onChange={setHeroImage}
+                required
+                helpText="Upload collection banner photo from local system"
               />
             </div>
 

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Grid, Plus, Edit, Image as ImageIcon, Save, CheckCircle2 } from "lucide-react";
+import ImageUploadDropzone from "@/components/admin/ImageUploadDropzone";
 
 export default function AdminCategoriesPage() {
   const [categories, setCategories] = useState<any[]>([]);
@@ -136,14 +137,12 @@ export default function AdminCategoriesPage() {
             </div>
 
             <div>
-              <label className="block text-xs text-slate-300 mb-1">Image URL *</label>
-              <input
-                type="text"
-                required
+              <ImageUploadDropzone
+                label="Category Cover Image"
                 value={image}
-                onChange={(e) => setImage(e.target.value)}
-                placeholder="https://..."
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white"
+                onChange={setImage}
+                required
+                helpText="Choose image from your local system"
               />
             </div>
 

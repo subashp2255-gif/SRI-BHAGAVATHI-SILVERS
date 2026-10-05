@@ -24,8 +24,8 @@ export interface SilverRate {
 }
 
 export const INITIAL_SILVER_RATE: SilverRate = {
-  finalPrice: 247.04,
-  formattedFinalPrice: "₹247.04",
+  finalPrice: 240.0,
+  formattedFinalPrice: "₹240.00",
   currency: "INR",
   unit: "gram",
   date: new Date().toISOString().split("T")[0],
@@ -34,17 +34,17 @@ export const INITIAL_SILVER_RATE: SilverRate = {
     month: "short",
     year: "numeric",
   }),
-  perGram: 247.04,
-  perGram925: 247.04,
-  per10Gram: 2470.40,
-  perKg: 247040,
-  source: "Certified Boutique Atelier",
+  perGram: 240.0,
+  perGram925: 222.0,
+  per10Gram: 2400.0,
+  perKg: 240000,
+  source: "MJDTA",
   updatedAt: new Date().toLocaleDateString("en-IN", {
     day: "numeric",
     month: "short",
     year: "numeric",
   }),
-  isLive: false,
+  isLive: true,
 };
 
 export function useSilverRate() {

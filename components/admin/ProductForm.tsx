@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import {
   Package,
@@ -19,7 +19,10 @@ import {
   AlertCircle,
   Plus,
   Trash2,
+  UploadCloud,
+  X,
 } from "lucide-react";
+import ImageUploadDropzone from "@/components/admin/ImageUploadDropzone";
 
 interface ProductFormProps {
   initialData?: any;
@@ -42,10 +45,12 @@ export default function ProductForm({ initialData, isEdit }: ProductFormProps) {
   const [story, setStory] = useState(initialData?.story || "");
   const [careInstructions, setCareInstructions] = useState(initialData?.careInstructions || "");
 
-  // Media
+  // Media - Local Files Uploaded via API
   const [image, setImage] = useState(initialData?.image || "");
   const [secondaryImages, setSecondaryImages] = useState<string[]>(initialData?.secondaryImages || []);
-  const [newImageInput, setNewImageInput] = useState("");
+  const galleryInputRef = useRef<HTMLInputElement>(null);
+  const [uploadingGallery, setUploadingGallery] = useState(false);
+  const [galleryError, setGalleryError] = useState<string | null>(null);
 
   // Pricing Mode
   const [pricingMode, setPricingMode] = useState<"FIXED" | "RATE_BASED">(initialData?.pricingMode || "FIXED");
@@ -106,10 +111,33 @@ export default function ProductForm({ initialData, isEdit }: ProductFormProps) {
     }
   };
 
-  const addSecondaryImage = () => {
-    if (newImageInput.trim()) {
-      setSecondaryImages([...secondaryImages, newImageInput.trim()]);
-      setNewImageInput("");
+  const handleGalleryFilesSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    setUploadingGallery(true);
+    setGalleryError(null);
+    try {
+      const formData = new FormData();
+      for (let i = 0; i < files.length; i++) {
+        formData.append("files", files[i]);
+      }
+
+      const res = await fetch("/api/admin/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to upload gallery images");
+
+      const newUrls: string[] = data.urls || (data.url ? [data.url] : []);
+      setSecondaryImages((prev) => [...prev, ...newUrls]);
+    } catch (err: any) {
+      setGalleryError(err.message || "Failed to upload gallery images from computer");
+    } finally {
+      setUploadingGallery(false);
+      e.target.value = "";
     }
   };
 
@@ -123,7 +151,7 @@ export default function ProductForm({ initialData, isEdit }: ProductFormProps) {
     }
     const weight = parseFloat(weightGrams) || 0;
     const making = parseFloat(makingCharge) || 0;
-    const rate = purity === "999" ? 247.04 : 247.04 * 0.925;
+    const rate = purity === "999" ? 240.0 : 240.0 * 0.925;
     const base = weight * rate + weight * making;
     return Math.round(base * 1.03); // 3% GST
   };
@@ -131,7 +159,7 @@ export default function ProductForm({ initialData, isEdit }: ProductFormProps) {
   const handleSubmit = async (targetStatus: "DRAFT" | "PUBLISHED") => {
     setError(null);
     if (!name || !image) {
-      setError("Product Name and Primary Image URL are required.");
+      setError("Product Name and Primary Image are required. Please upload an image from your computer.");
       return;
     }
 
@@ -457,73 +485,134 @@ export default function ProductForm({ initialData, isEdit }: ProductFormProps) {
           </div>
 
           {/* SECTION 3: MEDIA MANAGEMENT */}
-          <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 space-y-4">
-            <h2 className="text-sm font-semibold text-white flex items-center space-x-2 border-b border-slate-800 pb-3">
-              <ImageIcon className="w-4 h-4 text-purple-400" />
-              <span>3. Product Images & Gallery</span>
-            </h2>
-
-            <div>
-              <label className="block text-xs font-medium text-slate-300 mb-1">
-                Primary Image URL *
-              </label>
-              <input
-                type="text"
-                required
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
-                placeholder="https://..."
-                className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none"
-              />
-              {image && (
-                <div className="mt-3 flex items-center space-x-3">
-                  <img
-                    src={image}
-                    alt="Primary Preview"
-                    className="w-20 h-20 rounded-xl object-cover border border-slate-700"
-                  />
-                  <span className="text-xs text-emerald-400 font-medium">✓ Primary Image Set</span>
-                </div>
-              )}
+          <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 space-y-5">
+            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+              <h2 className="text-sm font-semibold text-white flex items-center space-x-2">
+                <ImageIcon className="w-4 h-4 text-purple-400" />
+                <span>3. Product Images & Gallery</span>
+              </h2>
+              <span className="text-[10px] text-amber-400/90 font-medium bg-amber-500/10 px-2.5 py-0.5 rounded-full border border-amber-500/20">
+                Direct Local Upload
+              </span>
             </div>
 
-            {/* Additional Images */}
-            <div className="pt-2">
-              <label className="block text-xs font-medium text-slate-300 mb-1">
-                Additional Gallery Images
-              </label>
-              <div className="flex space-x-2 mb-3">
-                <input
-                  type="text"
-                  value={newImageInput}
-                  onChange={(e) => setNewImageInput(e.target.value)}
-                  placeholder="Paste secondary image URL..."
-                  className="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-3 py-1.5 text-xs text-white"
-                />
-                <button
-                  type="button"
-                  onClick={addSecondaryImage}
-                  className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-medium flex items-center space-x-1"
-                >
-                  <Plus className="w-3.5 h-3.5" />
-                  <span>Add</span>
-                </button>
+            {/* Primary Image Local Upload */}
+            <div>
+              <ImageUploadDropzone
+                label="Primary Showcase Image"
+                value={image}
+                onChange={setImage}
+                required
+                helpText="Choose or drag a primary high-resolution photo from your local system (PNG, JPG, WEBP)"
+              />
+            </div>
+
+            {/* Additional Gallery Images */}
+            <div className="pt-2 border-t border-slate-800/80 space-y-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <label className="block text-xs font-medium text-slate-300">
+                    Additional Gallery Angles & Photos
+                  </label>
+                  <p className="text-[11px] text-slate-500">
+                    Upload multiple side profiles, craftsmanship details, or hallmark closeups from your computer
+                  </p>
+                </div>
+                {secondaryImages.length > 0 && (
+                  <span className="text-[11px] font-mono text-slate-400 bg-slate-800 px-2 py-0.5 rounded-md">
+                    {secondaryImages.length} attached
+                  </span>
+                )}
               </div>
 
-              {secondaryImages.length > 0 && (
-                <div className="grid grid-cols-4 gap-3">
+              {galleryError && (
+                <div className="p-2.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-center justify-between">
+                  <span>{galleryError}</span>
+                  <button type="button" onClick={() => setGalleryError(null)} className="text-rose-400 hover:text-white">
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              )}
+
+              <input
+                ref={galleryInputRef}
+                type="file"
+                multiple
+                accept="image/*"
+                onChange={handleGalleryFilesSelect}
+                className="hidden"
+              />
+
+              {secondaryImages.length === 0 ? (
+                <div
+                  onClick={() => galleryInputRef.current?.click()}
+                  className="border-2 border-dashed border-slate-800 hover:border-slate-700 bg-slate-950/50 hover:bg-slate-950/80 rounded-2xl p-6 text-center cursor-pointer transition flex flex-col items-center justify-center space-y-2"
+                >
+                  {uploadingGallery ? (
+                    <div className="py-2 flex items-center space-x-2 text-amber-400 text-xs">
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      <span>Uploading gallery images from computer...</span>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400">
+                        <UploadCloud className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <p className="text-xs font-semibold text-slate-200">
+                          Click to upload gallery photos from your local system
+                        </p>
+                        <p className="text-[11px] text-slate-500 mt-0.5">
+                          Select one or multiple photos simultaneously (PNG, JPG, WEBP)
+                        </p>
+                      </div>
+                    </>
+                  )}
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-3">
                   {secondaryImages.map((img, idx) => (
-                    <div key={idx} className="relative group rounded-xl overflow-hidden border border-slate-800">
-                      <img src={img} alt={`Gallery ${idx}`} className="w-full h-20 object-cover" />
-                      <button
-                        type="button"
-                        onClick={() => removeSecondaryImage(idx)}
-                        className="absolute top-1 right-1 bg-rose-600 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition"
-                      >
-                        <Trash2 className="w-3 h-3" />
-                      </button>
+                    <div
+                      key={idx}
+                      className="relative group rounded-xl overflow-hidden border border-slate-800 bg-slate-950 aspect-square shadow-sm"
+                    >
+                      <img
+                        src={img}
+                        alt={`Gallery ${idx + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-slate-950/60 opacity-0 group-hover:opacity-100 transition flex items-center justify-center space-x-2">
+                        <button
+                          type="button"
+                          onClick={() => removeSecondaryImage(idx)}
+                          className="bg-rose-600 hover:bg-rose-500 text-white p-1.5 rounded-lg shadow transition"
+                          title="Remove image"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                      <span className="absolute bottom-1 left-1 px-1.5 py-0.5 bg-slate-900/80 text-[9px] font-mono text-slate-400 rounded">
+                        #{idx + 1}
+                      </span>
                     </div>
                   ))}
+
+                  {/* Add More Photos Card */}
+                  <button
+                    type="button"
+                    onClick={() => galleryInputRef.current?.click()}
+                    disabled={uploadingGallery}
+                    className="border-2 border-dashed border-slate-800 hover:border-amber-500/50 bg-slate-950/40 hover:bg-slate-950/80 rounded-xl aspect-square flex flex-col items-center justify-center text-slate-400 hover:text-amber-400 transition space-y-1 p-2 disabled:opacity-50"
+                  >
+                    {uploadingGallery ? (
+                      <Loader2 className="w-5 h-5 animate-spin text-amber-400" />
+                    ) : (
+                      <>
+                        <Plus className="w-5 h-5" />
+                        <span className="text-[10px] font-medium text-center">Add More Photos</span>
+                      </>
+                    )}
+                  </button>
                 </div>
               )}
             </div>

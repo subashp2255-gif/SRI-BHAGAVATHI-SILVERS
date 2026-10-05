@@ -440,12 +440,12 @@ export function getLatestSilverRate() {
   const config = db.prepare("SELECT * FROM silver_rate_config WHERE id = 'default'").get() as any;
 
   return {
-    ratePerGram999: rate?.rate_per_gram_999 || 247.04,
-    ratePerGram925: rate?.rate_per_gram_925 || 247.04,
-    mode: rate?.mode || "MANUAL",
-    manualOverride: Boolean(rate?.manual_override ?? true),
+    ratePerGram999: rate?.rate_per_gram_999 || 240.0,
+    ratePerGram925: rate?.rate_per_gram_925 || 222.0,
+    mode: rate?.mode || "API",
+    manualOverride: false,
     purity: rate?.purity || "999",
-    source: rate?.source || "Certified Boutique Atelier",
+    source: rate?.source || "MJDTA",
     change: rate?.change_val || 0,
     changePercent: rate?.change_percent || 0,
     timestamp: rate?.timestamp || new Date().toISOString(),
@@ -678,4 +678,21 @@ export function getDashboardMetrics() {
     recentEnquiries,
     recentLogs,
   };
+}
+
+// ----------------------------------------------------
+// MEDIA ITEMS
+// ----------------------------------------------------
+export function createMediaItem(data: { name: string; url: string; fileType: string; size: number }) {
+  const id = `media_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+  const now = new Date().toISOString();
+  db.prepare(`
+    INSERT INTO media_items (id, name, url, file_type, size, created_at)
+    VALUES (?, ?, ?, ?, ?, ?)
+  `).run(id, data.name, data.url, data.fileType, data.size, now);
+  return { id, ...data, createdAt: now };
+}
+
+export function getMediaItems(limit = 50) {
+  return db.prepare("SELECT * FROM media_items ORDER BY created_at DESC LIMIT ?").all(limit) as any[];
 }

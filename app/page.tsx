@@ -6,7 +6,6 @@ import { HeroSection } from "@/components/HeroSection";
 import { TrustStrip } from "@/components/TrustStrip";
 import { ExploreSilverSection } from "@/components/ExploreSilverSection";
 import { ShopByStyleSection } from "@/components/ShopByStyleSection";
-import { OccasionDiscoveryGrid } from "@/components/OccasionDiscoveryGrid";
 import { FeaturedCollectionSection } from "@/components/FeaturedCollectionSection";
 import { TrendingCarousel } from "@/components/TrendingCarousel";
 import { NewArrivalsSection } from "@/components/NewArrivalsSection";
@@ -14,8 +13,6 @@ import { GuidedGiftingTool } from "@/components/GuidedGiftingTool";
 import { SilverJourneyHorizontal } from "@/components/SilverJourneyHorizontal";
 import { OurStorySection } from "@/components/OurStorySection";
 import { NeedHelpChoosingSection } from "@/components/NeedHelpChoosingSection";
-import { SilverGuideSection } from "@/components/SilverGuideSection";
-import { FromOurWorldSection } from "@/components/FromOurWorldSection";
 import { StoreLocatorSection } from "@/components/StoreLocatorSection";
 import { ShowroomFinalCTA } from "@/components/ShowroomFinalCTA";
 import { RecentlyViewed, recordRecentlyViewed } from "@/components/RecentlyViewed";
@@ -65,8 +62,6 @@ export default function HomePage() {
         {/* 4. SHOP BY STYLE */}
         <ShopByStyleSection />
 
-        {/* 5. SHOP BY MOMENT */}
-        <OccasionDiscoveryGrid />
 
         {/* 6. FEATURED COLLECTION */}
         <FeaturedCollectionSection />
@@ -87,11 +82,7 @@ export default function HomePage() {
         {/* 13. NEED HELP CHOOSING? */}
         <NeedHelpChoosingSection />
 
-        {/* 14. SILVER GUIDE KNOWLEDGE HUB */}
-        <SilverGuideSection />
 
-        {/* 15. FROM OUR WORLD */}
-        <FromOurWorldSection />
 
         {/* 16. VISIT US — FLAGSHIP SHOWROOM LOCATION */}
         <StoreLocatorSection />

@@ -89,7 +89,7 @@ export default function AdminDashboardPage() {
             className="flex items-center space-x-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-medium text-xs rounded-xl transition"
           >
             <TrendingUp className="w-4 h-4 text-amber-400" />
-            <span>Silver Rate Setup</span>
+            <span>MJDTA Live Rates</span>
           </Link>
         </div>
       </div>
