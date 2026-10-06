@@ -29,16 +29,16 @@ export default function AboutUsPage() {
 
       <main className="flex-grow w-full pt-24">
         {/* Banner */}
-        <div className="w-full bg-[#f5f3ee] py-16 border-b border-[#e8e8e8]">
+        <div className="w-full bg-[#f5f3ee] py-10 sm:py-16 border-b border-[#e8e8e8]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
-            <span className="font-sans-editorial text-xs uppercase tracking-[0.25em] text-[#725b38] block font-bold mb-2 flex items-center justify-center gap-1.5">
-              <Sparkles className="w-4 h-4 text-[#c5a880]" />
+            <span className="font-sans-editorial text-[10px] sm:text-xs uppercase tracking-[0.25em] text-[#725b38] block font-bold mb-2 flex items-center justify-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#c5a880]" />
               Our Heritage & Philosophy
             </span>
-            <h1 className="font-serif-luxury text-4xl sm:text-5xl text-[#010101] tracking-tight mb-4">
+            <h1 className="font-serif-luxury text-3xl sm:text-5xl text-[#010101] tracking-tight mb-3 sm:mb-4">
               Generations of Sacred Silver Craft
             </h1>
-            <p className="font-sans-editorial text-sm sm:text-base text-[#444748] leading-relaxed">
+            <p className="font-sans-editorial text-xs sm:text-base text-[#444748] leading-relaxed">
               Sri Bhagavathi Silvers stands as a beacon of metallurgical purity, traditional South Indian silversmithing heritage, and transparent hallmark integrity.
             </p>
           </div>
@@ -48,14 +48,14 @@ export default function AboutUsPage() {
         <WhyUsSection />
 
         {/* BIS Hallmark Certification & Purity Deep Dive */}
-        <section className="w-full bg-[#ffffff] py-16 sm:py-24 border-b border-[#e8e8e8]">
+        <section className="w-full bg-[#ffffff] py-12 sm:py-24 border-b border-[#e8e8e8]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-              <div className="space-y-4">
-                <span className="font-sans-editorial text-xs uppercase tracking-[0.2em] text-[#725b38] font-bold">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10 items-center">
+              <div className="space-y-3 sm:space-y-4">
+                <span className="font-sans-editorial text-[10px] sm:text-xs uppercase tracking-[0.2em] text-[#725b38] font-bold">
                   Assaying & Certification
                 </span>
-                <h2 className="font-serif-luxury text-3xl sm:text-4xl text-[#010101] font-normal">
+                <h2 className="font-serif-luxury text-2xl sm:text-4xl text-[#010101] font-normal">
                   The 925 BIS Hallmark Promise
                 </h2>
                 <p className="font-sans-editorial text-sm sm:text-base text-[#444748] leading-relaxed">

@@ -59,7 +59,7 @@ export function ShopByStyleSection() {
   ];
 
   return (
-    <section className="py-20 lg:py-28 bg-[#f5f3ee] border-b border-[#e8e8e8] relative">
+    <section className="py-14 sm:py-20 lg:py-28 bg-[#f5f3ee] border-b border-[#e8e8e8] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -67,7 +67,7 @@ export function ShopByStyleSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="flex flex-col md:flex-row md:items-end justify-between mb-12 border-b border-[#e8e8e8] pb-6 gap-4"
+          className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-12 border-b border-[#e8e8e8] pb-4 sm:pb-6 gap-3 sm:gap-4"
         >
           <div>
             <div className="flex items-center gap-2 text-[#725b38] font-sans-editorial text-xs uppercase tracking-[0.25em] font-semibold mb-2">
@@ -89,16 +89,16 @@ export function ShopByStyleSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
         >
           {styles.map((style) => (
             <motion.div
               key={style.id}
               variants={fadeUp}
-              className="group bg-[#fbf9f4] border border-[#e8e8e8] hover:border-[#725b38] transition-all duration-300 p-6 flex flex-col justify-between"
+              className="group bg-[#fbf9f4] border border-[#e8e8e8] hover:border-[#725b38] transition-all duration-300 p-4 sm:p-6 flex flex-col justify-between"
             >
               <div>
-                <div className="w-full h-48 overflow-hidden mb-6 relative metallic-sheen">
+                <div className="w-full h-40 sm:h-48 overflow-hidden mb-4 sm:mb-6 relative metallic-sheen">
                   <img
                     src={style.image}
                     alt={style.name}

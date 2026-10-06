@@ -53,7 +53,7 @@ export function NeedHelpChoosingSection() {
   const slide = CONCIERGE_SLIDES[currentSlide];
 
   return (
-    <section className="py-20 lg:py-28 bg-[#f5f3ee] border-b border-[#e8e8e8] relative overflow-hidden">
+    <section className="py-14 sm:py-20 lg:py-28 bg-[#f5f3ee] border-b border-[#e8e8e8] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           variants={fadeUp}
@@ -62,7 +62,7 @@ export function NeedHelpChoosingSection() {
           viewport={{ once: true, margin: "-100px" }}
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
-          className="relative rounded-none border border-[#c5a880]/25 overflow-hidden bg-[#0a0806] text-[#ffffff] p-8 sm:p-12 lg:p-16 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.3)] metallic-sheen"
+          className="relative rounded-none border border-[#c5a880]/25 overflow-hidden bg-[#0a0806] text-[#ffffff] p-5 xs:p-6 sm:p-12 lg:p-16 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.3)] metallic-sheen"
         >
           {/* Subtle Top & Bottom Gold Ambient Hairlines */}
           <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#c5a880]/40 to-transparent z-20 pointer-events-none" />
@@ -92,16 +92,16 @@ export function NeedHelpChoosingSection() {
           </motion.div>
 
           {/* Multi-tier Editorial Overlay: Left-dark for crisp readability, lighter on right to reveal photograph */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0a0806] via-[#0a0806]/92 sm:via-[#0a0806]/85 md:via-[#0a0806]/65 to-[#0a0806]/15 z-10 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0a0806] via-[#0a0806]/95 sm:via-[#0a0806]/85 md:via-[#0a0806]/65 to-[#0a0806]/20 z-10 pointer-events-none" />
           
           {/* Vertical Gradient for mobile text isolation */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0806]/95 via-transparent to-transparent sm:hidden z-10 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0806]/95 via-[#0a0806]/60 to-transparent sm:hidden z-10 pointer-events-none" />
 
           {/* Subtle Warm Amber/Gold Ambient Tone */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#c5a880]/15 via-transparent to-transparent z-10 pointer-events-none" />
 
           {/* Content Area */}
-          <div className="relative z-20 max-w-2xl min-h-[290px] sm:min-h-[270px] flex flex-col justify-between">
+          <div className="relative z-20 max-w-2xl min-h-[260px] sm:min-h-[270px] flex flex-col justify-between">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentSlide}
@@ -109,35 +109,35 @@ export function NeedHelpChoosingSection() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                className="space-y-4 sm:space-y-5"
+                className="space-y-3 sm:space-y-5"
               >
                 {/* Refined Eyebrow with Fine Gold Accent Lines */}
-                <div className="inline-flex items-center gap-2.5 text-[#c5a880] font-sans-editorial text-[11px] sm:text-xs uppercase tracking-[0.28em] font-semibold">
-                  <Sparkles className="w-3.5 h-3.5 text-[#c5a880]" />
-                  <span>{slide.eyebrow}</span>
-                  <span className="w-8 sm:w-12 h-[1px] bg-gradient-to-r from-[#c5a880]/60 to-transparent inline-block" />
+                <div className="inline-flex items-center gap-2 text-[#c5a880] font-sans-editorial text-[10px] sm:text-xs uppercase tracking-[0.25em] font-semibold">
+                  <Sparkles className="w-3.5 h-3.5 text-[#c5a880] shrink-0" />
+                  <span className="truncate">{slide.eyebrow}</span>
+                  <span className="w-6 sm:w-12 h-[1px] bg-gradient-to-r from-[#c5a880]/60 to-transparent inline-block shrink-0" />
                 </div>
 
                 {/* Editorial Serif Heading */}
-                <h2 className="font-serif-luxury font-light text-3xl sm:text-4xl lg:text-[2.75rem] text-[#fbf9f4] tracking-tight leading-[1.16]">
+                <h2 className="font-serif-luxury font-light text-2xl sm:text-4xl lg:text-[2.75rem] text-[#fbf9f4] tracking-tight leading-[1.16]">
                   {slide.heading}
                 </h2>
 
                 {/* Supporting Text */}
-                <p className="font-sans-editorial text-sm sm:text-base text-[#d8d3c8] leading-relaxed max-w-[640px] font-normal">
+                <p className="font-sans-editorial text-xs sm:text-base text-[#d8d3c8] leading-relaxed max-w-[640px] font-normal">
                   {slide.description}
                 </p>
               </motion.div>
             </AnimatePresence>
 
             {/* Upgraded Dual CTA Buttons */}
-            <div className="pt-7 sm:pt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-4">
+            <div className="pt-6 sm:pt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
               {/* Primary CTA: Talk to an Expert */}
               <a
                 href="https://wa.me/919876543210?text=Hello%20Sri%20Bhagavathi%20Silvers%2C%20I%20would%20like%20expert%20assistance%20choosing%20a%20silver%20piece."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center gap-2.5 px-7 sm:px-8 h-[50px] sm:h-[52px] bg-[#c5a880] text-[#0a0806] font-sans-editorial text-[11px] sm:text-xs uppercase tracking-[0.2em] font-semibold btn-light-sweep hover:bg-[#d6bc96] transition-all duration-300 hover:-translate-y-0.5 shadow-[0_4px_20px_rgba(197,168,128,0.22)]"
+                className="group inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 min-h-[46px] sm:min-h-[52px] bg-[#c5a880] text-[#0a0806] font-sans-editorial text-[11px] sm:text-xs uppercase tracking-[0.2em] font-semibold btn-light-sweep hover:bg-[#d6bc96] transition-all duration-300 hover:-translate-y-0.5 shadow-[0_4px_20px_rgba(197,168,128,0.22)]"
               >
                 <MessageSquare className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" />
                 <span>Talk to an Expert</span>
@@ -146,7 +146,7 @@ export function NeedHelpChoosingSection() {
               {/* Secondary CTA: Visit Our Showroom */}
               <Link
                 href="/visit-our-store"
-                className="group inline-flex items-center justify-center gap-2.5 px-7 sm:px-8 h-[50px] sm:h-[52px] bg-transparent border border-[#c5a880]/50 hover:border-[#c5a880] text-[#fbf9f4] font-sans-editorial text-[11px] sm:text-xs uppercase tracking-[0.2em] font-semibold hover:bg-[#c5a880]/10 hover:-translate-y-0.5 transition-all duration-300"
+                className="group inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 min-h-[46px] sm:min-h-[52px] bg-transparent border border-[#c5a880]/50 hover:border-[#c5a880] text-[#fbf9f4] font-sans-editorial text-[11px] sm:text-xs uppercase tracking-[0.2em] font-semibold hover:bg-[#c5a880]/10 hover:-translate-y-0.5 transition-all duration-300"
               >
                 <MapPin className="w-4 h-4 text-[#c5a880] transition-transform duration-300 group-hover:scale-110" />
                 <span>Visit Our Showroom</span>
@@ -155,19 +155,23 @@ export function NeedHelpChoosingSection() {
           </div>
 
           {/* Refined Carousel Indicators */}
-          <div className="relative z-20 mt-8 sm:mt-10 pt-4 border-t border-white/10 flex items-center justify-between">
-            <div className="flex items-center gap-2">
+          <div className="relative z-20 mt-6 sm:mt-10 pt-4 border-t border-white/10 flex items-center justify-between">
+            <div className="flex items-center gap-1 sm:gap-2">
               {CONCIERGE_SLIDES.map((_, idx) => (
                 <button
                   key={idx}
                   onClick={() => setCurrentSlide(idx)}
                   aria-label={`Go to concierge slide ${idx + 1}`}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
-                    currentSlide === idx
-                      ? "w-8 bg-[#c5a880]"
-                      : "w-2 bg-[#c5a880]/30 hover:bg-[#c5a880]/60"
-                  }`}
-                />
+                  className="py-2 px-1 focus:outline-none"
+                >
+                  <span
+                    className={`block h-1.5 rounded-full transition-all duration-300 ${
+                      currentSlide === idx
+                        ? "w-8 bg-[#c5a880]"
+                        : "w-2 bg-[#c5a880]/30 hover:bg-[#c5a880]/60"
+                    }`}
+                  />
+                </button>
               ))}
             </div>
 

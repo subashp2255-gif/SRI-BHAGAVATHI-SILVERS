@@ -45,47 +45,51 @@ export default function ContactPage() {
 
       <main className="flex-grow w-full pt-24">
         {/* Header */}
-        <div className="w-full bg-[#f5f3ee] py-12 border-b border-[#e8e8e8]">
+        <div className="w-full bg-[#f5f3ee] py-8 sm:py-12 border-b border-[#e8e8e8]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-2xl">
-            <span className="font-sans-editorial text-xs uppercase tracking-[0.25em] text-[#725b38] block font-bold mb-2">
+            <span className="font-sans-editorial text-[10px] sm:text-xs uppercase tracking-[0.25em] text-[#725b38] block font-bold mb-1.5 sm:mb-2">
               Concierge Assistance
             </span>
-            <h1 className="font-serif-luxury text-4xl sm:text-5xl text-[#010101] tracking-tight mb-3">
+            <h1 className="font-serif-luxury text-3xl sm:text-5xl text-[#010101] tracking-tight mb-2 sm:mb-3">
               Contact Sri Bhagavathi Silvers
             </h1>
-            <p className="font-sans-editorial text-sm sm:text-base text-[#444748]">
+            <p className="font-sans-editorial text-xs sm:text-base text-[#444748]">
               We are available to answer weight queries, arrange insured shipping consultations, or customize traditional silver heirlooms.
             </p>
           </div>
         </div>
 
         {/* Form + Store Quick Cards */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
             {/* Direct Info */}
-            <div className="lg:col-span-5 space-y-6">
-              <div className="bg-[#ffffff] p-6 border border-[#e8e8e8] shadow-sm space-y-4">
-                <h3 className="font-serif-luxury text-xl text-[#010101] font-semibold">
+            <div className="lg:col-span-5 space-y-4 sm:space-y-6">
+              <div className="bg-[#ffffff] p-5 sm:p-6 border border-[#e8e8e8] shadow-sm space-y-4">
+                <h3 className="font-serif-luxury text-lg sm:text-xl text-[#010101] font-semibold">
                   Flagship Store & Concierge
                 </h3>
-                <div className="space-y-3 font-sans-editorial text-sm text-[#444748]">
+                <div className="space-y-3 font-sans-editorial text-xs sm:text-sm text-[#444748]">
                   <div className="flex items-start gap-3">
                     <MapPin className="w-4 h-4 text-[#725b38] mt-1 shrink-0" />
                     <p>{STORE_CONFIG.address.fullFormatted}</p>
                   </div>
                   <div className="flex items-center gap-3">
                     <Phone className="w-4 h-4 text-[#725b38] shrink-0" />
-                    <p>{STORE_CONFIG.phone}</p>
+                    <a href={`tel:${STORE_CONFIG.phoneRaw}`} className="hover:text-[#010101] underline">
+                      {STORE_CONFIG.phone}
+                    </a>
                   </div>
                   <div className="flex items-center gap-3">
                     <Mail className="w-4 h-4 text-[#725b38] shrink-0" />
-                    <p>{STORE_CONFIG.email}</p>
+                    <a href={`mailto:${STORE_CONFIG.email}`} className="hover:text-[#010101] underline">
+                      {STORE_CONFIG.email}
+                    </a>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-[#f5f3ee] p-6 border border-[#e8e8e8]">
-                <h4 className="font-serif-luxury text-lg text-[#010101] font-semibold mb-2">
+              <div className="bg-[#f5f3ee] p-5 sm:p-6 border border-[#e8e8e8]">
+                <h4 className="font-serif-luxury text-base sm:text-lg text-[#010101] font-semibold mb-2">
                   Store Operating Hours
                 </h4>
                 <p className="font-sans-editorial text-xs text-[#444748] leading-relaxed">
@@ -97,16 +101,16 @@ export default function ContactPage() {
 
             {/* Contact Form */}
             <div className="lg:col-span-7">
-              <div className="bg-[#ffffff] p-8 border border-[#e8e8e8] shadow-md">
-                <h3 className="font-serif-luxury text-2xl text-[#010101] mb-6">
+              <div className="bg-[#ffffff] p-5 sm:p-8 border border-[#e8e8e8] shadow-md">
+                <h3 className="font-serif-luxury text-xl sm:text-2xl text-[#010101] mb-5 sm:mb-6">
                   Send Us an Inquiry
                 </h3>
 
                 {submitted ? (
-                  <div className="bg-[#f5f3ee] p-8 text-center border border-[#c5a880] space-y-3">
+                  <div className="bg-[#f5f3ee] p-6 sm:p-8 text-center border border-[#c5a880] space-y-3">
                     <CheckCircle className="w-10 h-10 text-[#725b38] mx-auto" />
                     <h4 className="font-serif-luxury text-xl text-[#010101]">Inquiry Transmitted</h4>
-                    <p className="font-sans-editorial text-sm text-[#444748]">
+                    <p className="font-sans-editorial text-xs sm:text-sm text-[#444748]">
                       Thank you for contacting Sri Bhagavathi Silvers. A senior concierge representative will respond within 2-4 hours.
                     </p>
                   </div>
@@ -124,7 +128,7 @@ export default function ContactPage() {
                           value={contactForm.name}
                           onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
                           placeholder="e.g. Ramesh Kumar"
-                          className="w-full bg-[#f5f3ee] p-3 border border-[#e8e8e8] focus:outline-none focus:border-[#010101]"
+                          className="w-full bg-[#f5f3ee] p-3 text-xs sm:text-sm border border-[#e8e8e8] focus:outline-none focus:border-[#010101] min-h-[44px]"
                         />
                       </div>
                       <div>
@@ -138,7 +142,7 @@ export default function ContactPage() {
                           value={contactForm.phone}
                           onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}
                           placeholder="+91 98765 43210"
-                          className="w-full bg-[#f5f3ee] p-3 border border-[#e8e8e8] focus:outline-none focus:border-[#010101]"
+                          className="w-full bg-[#f5f3ee] p-3 text-xs sm:text-sm border border-[#e8e8e8] focus:outline-none focus:border-[#010101] min-h-[44px]"
                         />
                       </div>
                     </div>
@@ -153,7 +157,7 @@ export default function ContactPage() {
                         value={contactForm.email}
                         onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
                         placeholder="ramesh@example.com"
-                        className="w-full bg-[#f5f3ee] p-3 border border-[#e8e8e8] focus:outline-none focus:border-[#010101]"
+                        className="w-full bg-[#f5f3ee] p-3 text-xs sm:text-sm border border-[#e8e8e8] focus:outline-none focus:border-[#010101] min-h-[44px]"
                       />
                     </div>
 
@@ -167,7 +171,7 @@ export default function ContactPage() {
                         value={contactForm.subject}
                         onChange={(e) => setContactForm({ ...contactForm, subject: e.target.value })}
                         placeholder="e.g. Kamakshi Vilakku custom weight quote"
-                        className="w-full bg-[#f5f3ee] p-3 border border-[#e8e8e8] focus:outline-none focus:border-[#010101]"
+                        className="w-full bg-[#f5f3ee] p-3 text-xs sm:text-sm border border-[#e8e8e8] focus:outline-none focus:border-[#010101] min-h-[44px]"
                       />
                     </div>
 
@@ -182,14 +186,14 @@ export default function ContactPage() {
                         value={contactForm.message}
                         onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
                         placeholder="Describe your inquiry..."
-                        className="w-full bg-[#f5f3ee] p-3 border border-[#e8e8e8] focus:outline-none focus:border-[#010101]"
+                        className="w-full bg-[#f5f3ee] p-3 text-xs sm:text-sm border border-[#e8e8e8] focus:outline-none focus:border-[#010101]"
                       />
                     </div>
 
                     <button
                       suppressHydrationWarning
                       type="submit"
-                      className="w-full bg-[#010101] text-[#ffffff] font-sans-editorial text-xs uppercase tracking-[0.18em] py-4 shadow hover:bg-[#333333] transition-colors font-semibold flex items-center justify-center gap-2"
+                      className="w-full bg-[#010101] text-[#ffffff] font-sans-editorial text-xs uppercase tracking-[0.18em] py-3.5 sm:py-4 shadow hover:bg-[#333333] transition-colors font-semibold flex items-center justify-center gap-2 min-h-[48px]"
                     >
                       <Send className="w-4 h-4 text-[#c5a880]" />
                       <span>SUBMIT BOUTIQUE INQUIRY</span>

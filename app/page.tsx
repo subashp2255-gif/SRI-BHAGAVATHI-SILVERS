@@ -9,7 +9,6 @@ import { ShopByStyleSection } from "@/components/ShopByStyleSection";
 import { FeaturedCollectionSection } from "@/components/FeaturedCollectionSection";
 import { TrendingCarousel } from "@/components/TrendingCarousel";
 import { NewArrivalsSection } from "@/components/NewArrivalsSection";
-import { GuidedGiftingTool } from "@/components/GuidedGiftingTool";
 import { SilverJourneyHorizontal } from "@/components/SilverJourneyHorizontal";
 import { OurStorySection } from "@/components/OurStorySection";
 import { NeedHelpChoosingSection } from "@/components/NeedHelpChoosingSection";
@@ -72,25 +71,20 @@ export default function HomePage() {
         {/* 8. NEW ARRIVALS */}
         <NewArrivalsSection onQuickView={handleSelectProduct} />
 
-        {/* 9. GIFTING EXPERIENCE */}
-        <GuidedGiftingTool />
-
-        {/* 10. CRAFT & HERITAGE */}
+        {/* 9. CRAFT & HERITAGE */}
         <SilverJourneyHorizontal />
         <OurStorySection />
 
-        {/* 13. NEED HELP CHOOSING? */}
+        {/* 10. NEED HELP CHOOSING? */}
         <NeedHelpChoosingSection />
 
-
-
-        {/* 16. VISIT US — FLAGSHIP SHOWROOM LOCATION */}
+        {/* 11. VISIT US — FLAGSHIP SHOWROOM LOCATION */}
         <StoreLocatorSection />
 
-        {/* 17. PRE-FOOTER SHOWROOM FINAL CONVERSION CTA */}
+        {/* 12. PRE-FOOTER SHOWROOM FINAL CONVERSION CTA */}
         <ShowroomFinalCTA />
 
-        {/* 18. RECENTLY VIEWED & CONCIERGE */}
+        {/* 13. RECENTLY VIEWED & CONCIERGE */}
         <RecentlyViewed onQuickView={handleSelectProduct} />
         <WhatsAppConcierge />
       </main>

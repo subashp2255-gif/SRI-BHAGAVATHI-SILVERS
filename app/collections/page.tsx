@@ -68,29 +68,29 @@ export default function CollectionsPage() {
         <LiveSilverRateStrip />
 
         {/* Collection Hero */}
-        <section className="relative w-full bg-[#010101] text-[#ffffff] py-20 lg:py-28 overflow-hidden border-b border-[#333333]">
+        <section className="relative w-full bg-[#010101] text-[#ffffff] py-14 sm:py-20 lg:py-28 overflow-hidden border-b border-[#333333]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
               <motion.div
                 variants={fadeUp}
                 initial="hidden"
                 animate="visible"
-                className="lg:col-span-6 space-y-6"
+                className="lg:col-span-6 space-y-4 sm:space-y-6"
               >
-                <div className="flex items-center gap-2 text-[#c5a880] font-sans-editorial text-xs uppercase tracking-[0.25em] font-semibold">
-                  <Sparkles className="w-4 h-4" />
+                <div className="flex items-center gap-2 text-[#c5a880] font-sans-editorial text-[11px] sm:text-xs uppercase tracking-[0.25em] font-semibold">
+                  <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   Editorial Campaigns
                 </div>
 
-                <h1 className="font-serif-luxury text-4xl sm:text-5xl lg:text-6xl text-[#ffffff] tracking-tight leading-tight">
+                <h1 className="font-serif-luxury text-3xl sm:text-5xl lg:text-6xl text-[#ffffff] tracking-tight leading-tight">
                   {currentCollection.name}
                 </h1>
 
-                <p className="font-sans-editorial text-sm sm:text-base text-[#c4c7c7] leading-relaxed max-w-xl">
+                <p className="font-sans-editorial text-xs sm:text-base text-[#c4c7c7] leading-relaxed max-w-xl">
                   {currentCollection.description}
                 </p>
 
-                <div className="pt-2 flex items-center gap-2 text-[#c5a880] font-sans-editorial text-xs font-semibold">
+                <div className="pt-1 sm:pt-2 flex items-center gap-2 text-[#c5a880] font-sans-editorial text-xs font-semibold">
                   <ShieldCheck className="w-4 h-4" />
                   Official BIS 925 Hallmark & Assay Certified
                 </div>
@@ -102,7 +102,7 @@ export default function CollectionsPage() {
                 animate="visible"
                 className="lg:col-span-6 relative"
               >
-                <div className="w-full h-[400px] sm:h-[500px] border border-[#333333] overflow-hidden metallic-sheen">
+                <div className="w-full h-[250px] xs:h-[320px] sm:h-[450px] lg:h-[500px] border border-[#333333] overflow-hidden metallic-sheen">
                   <img
                     src={currentCollection.heroImage}
                     alt={currentCollection.name}
@@ -115,13 +115,13 @@ export default function CollectionsPage() {
         </section>
 
         {/* Collection Selection Tabs */}
-        <section className="bg-[#f5f3ee] py-6 border-b border-[#e8e8e8]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center gap-2 sm:gap-4 overflow-x-auto">
+        <section className="bg-[#f5f3ee] py-4 sm:py-6 border-b border-[#e8e8e8]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-start sm:justify-center gap-2 sm:gap-4 overflow-x-auto pb-1 scrollbar-none">
             {collections.map((c) => (
               <button
                 key={c.id}
                 onClick={() => setActiveCollectionTab(c.id)}
-                className={`px-6 py-3 font-sans-editorial text-xs uppercase tracking-[0.2em] font-bold transition-all whitespace-nowrap border ${
+                className={`px-4 sm:px-6 py-2.5 sm:py-3 font-sans-editorial text-[11px] sm:text-xs uppercase tracking-[0.16em] sm:tracking-[0.2em] font-bold transition-all whitespace-nowrap border shrink-0 min-h-[42px] ${
                   activeCollectionTab === c.id
                     ? "bg-[#010101] text-[#ffffff] border-[#010101]"
                     : "bg-[#ffffff] text-[#444748] border-[#e8e8e8] hover:border-[#725b38]"
@@ -134,26 +134,26 @@ export default function CollectionsPage() {
         </section>
 
         {/* Collection Story */}
-        <section className="py-12 bg-[#fbf9f4] border-b border-[#e8e8e8]">
+        <section className="py-8 sm:py-12 bg-[#fbf9f4] border-b border-[#e8e8e8]">
           <div className="max-w-3xl mx-auto text-center px-4">
             <span className="font-sans-editorial text-xs uppercase tracking-[0.2em] text-[#725b38] font-bold block mb-2">
               Collection Narrative
             </span>
-            <p className="font-serif-luxury text-xl sm:text-2xl text-[#010101] italic leading-relaxed">
+            <p className="font-serif-luxury text-lg sm:text-2xl text-[#010101] italic leading-relaxed">
               &ldquo;{currentCollection.story}&rdquo;
             </p>
           </div>
         </section>
 
         {/* Complete Collection Grid */}
-        <section className="py-16 lg:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-8 pb-4 border-b border-[#e8e8e8]">
-            <h2 className="font-serif-luxury text-2xl sm:text-3xl text-[#010101]">
+        <section className="py-12 sm:py-16 lg:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 sm:mb-8 pb-3 sm:pb-4 border-b border-[#e8e8e8] gap-2">
+            <h2 className="font-serif-luxury text-xl sm:text-3xl text-[#010101]">
               Collection Catalogue ({collectionProducts.length} pieces)
             </h2>
             <Link
               href="/shop"
-              className="font-sans-editorial text-xs uppercase tracking-widest font-bold text-[#010101] hover:text-[#725b38] flex items-center gap-1"
+              className="font-sans-editorial text-xs uppercase tracking-widest font-bold text-[#010101] hover:text-[#725b38] flex items-center gap-1 py-1"
             >
               View Full Shop <ArrowRight className="w-3.5 h-3.5" />
             </Link>
@@ -163,7 +163,7 @@ export default function CollectionsPage() {
             variants={staggerContainer}
             initial="hidden"
             animate="visible"
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+            className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6"
           >
             {collectionProducts.map((product) => (
               <ProductCard

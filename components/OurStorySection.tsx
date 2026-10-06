@@ -9,14 +9,14 @@ import { MagneticButton } from "./MagneticButton";
 
 export function OurStorySection() {
   return (
-    <section className="w-full bg-[#fbf9f4] py-20 sm:py-28 border-b border-[#e8e8e8]/60 relative overflow-hidden">
+    <section className="w-full bg-[#fbf9f4] py-14 sm:py-20 lg:py-28 border-b border-[#e8e8e8]/60 relative overflow-hidden">
       {/* Background Watermark Editorial Typography (Prompt Rule 10) */}
       <div className="absolute top-1/2 left-0 -translate-y-1/2 text-[20vw] font-serif-luxury text-black/[0.025] tracking-widest pointer-events-none uppercase whitespace-nowrap font-bold select-none">
         HERITAGE
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
           {/* Left Artisan Image Plinth */}
           <ScrollReveal className="lg:col-span-6 relative" data-cursor="HANDCRAFTED">
             <div className="aspect-[4/3] lg:aspect-[5/4] w-full bg-[#eae8e3] overflow-hidden shadow-xl relative border border-[#e8e8e8] group metallic-sheen">
@@ -30,9 +30,9 @@ export function OurStorySection() {
               <div className="absolute inset-0 bg-[#010101]/10 pointer-events-none" />
             </div>
 
-            {/* Floating Glassmorphic Brand Emblem Box (Prompt Rule 21) */}
-            <div className="hidden sm:flex absolute -bottom-6 -right-6 w-48 h-48 glass-panel p-5 shadow-2xl border border-[#e8e8e8] flex-col items-center justify-center text-center">
-              <div className="w-12 h-12 rounded-full bg-[#010101] text-[#c5a880] flex items-center justify-center font-serif-luxury font-bold text-xl mb-2 shadow">
+            {/* Floating Glassmorphic Brand Emblem Box (Safely constrained to prevent horizontal bleed) */}
+            <div className="hidden md:flex absolute -bottom-4 sm:-bottom-6 right-2 md:-right-4 lg:-right-6 w-40 sm:w-48 h-40 sm:h-48 glass-panel p-4 sm:p-5 shadow-2xl border border-[#e8e8e8] flex-col items-center justify-center text-center">
+              <div className="w-10 sm:w-12 h-10 sm:h-12 rounded-full bg-[#010101] text-[#c5a880] flex items-center justify-center font-serif-luxury font-bold text-lg sm:text-xl mb-2 shadow">
                 S
               </div>
               <p className="font-serif-luxury text-xs font-semibold text-[#010101]">SRI BHAGAVATHI</p>
@@ -42,29 +42,29 @@ export function OurStorySection() {
 
           {/* Right Story Copy */}
           <ScrollReveal className="lg:col-span-6 flex flex-col justify-center lg:pl-6" delay={0.2}>
-            <span className="font-sans-editorial text-[11px] uppercase tracking-[0.25em] text-[#725b38] mb-2 font-bold flex items-center gap-1.5">
+            <span className="font-sans-editorial text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-[#725b38] mb-2 font-bold flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-[#c5a880]" />
               Generations of Grace
             </span>
 
-            <h2 className="font-serif-luxury text-3xl sm:text-4xl lg:text-5xl text-[#010101] mb-6 leading-tight font-normal">
+            <h2 className="font-serif-luxury text-2xl sm:text-4xl lg:text-5xl text-[#010101] mb-4 sm:mb-6 leading-tight font-normal">
               OUR STORY — <br />
               <span className="font-normal italic text-[#725b38]">Sri Bhagavathi Silvers</span>
             </h2>
 
-            <p className="font-sans-editorial text-base sm:text-lg text-[#1b1c19] mb-4 font-light leading-relaxed">
+            <p className="font-sans-editorial text-sm sm:text-lg text-[#1b1c19] mb-3 sm:mb-4 font-light leading-relaxed">
               Founded in the heritage-rich heart of Tamil Nadu, Sri Bhagavathi Silvers was born from a deep reverence for the sacred silver art of South Indian temples.
             </p>
 
-            <p className="font-sans-editorial text-sm sm:text-base text-[#444748] mb-8 leading-relaxed">
+            <p className="font-sans-editorial text-xs sm:text-base text-[#444748] mb-6 sm:mb-8 leading-relaxed">
               For decades, our atelier has partnered directly with generational families of silversmiths. Each anklet, pooja deepam, and intricate necklace is an ode to ritual sanctity and aesthetic purity. We reject mass machine stamping in favor of deliberate, soulful craft, ensuring every piece you welcome into your sanctuary carries blessings, unmatched weight integrity, and timeless luxury.
             </p>
 
             <div>
-              <MagneticButton>
+              <MagneticButton className="w-full sm:w-auto">
                 <Link
                   href="/about-us"
-                  className="btn-light-sweep inline-flex items-center gap-2 bg-[#010101] text-[#ffffff] font-sans-editorial text-xs uppercase px-7 py-4 tracking-[0.18em] hover:bg-[#262626] transition-colors shadow font-semibold group"
+                  className="btn-light-sweep w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#010101] text-[#ffffff] font-sans-editorial text-xs uppercase px-7 py-3.5 sm:py-4 tracking-[0.18em] hover:bg-[#262626] transition-colors shadow font-semibold group min-h-[44px]"
                 >
                   <span>LEARN MORE ABOUT US</span>
                   <ArrowRight className="w-4 h-4 text-[#c5a880] transition-transform duration-300 group-hover:translate-x-1.5" />

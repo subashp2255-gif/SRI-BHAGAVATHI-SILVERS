@@ -46,28 +46,28 @@ export default function VisitStorePage() {
         <StoreLocatorSection />
 
         {/* Private Boutique Viewing Appointment Form */}
-        <section className="w-full bg-[#ffffff] py-16 sm:py-24 border-b border-[#e8e8e8]">
+        <section className="w-full bg-[#ffffff] py-12 sm:py-24 border-b border-[#e8e8e8]">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="bg-[#f5f3ee] p-8 sm:p-12 border border-[#e8e8e8] shadow-lg">
-              <div className="text-center max-w-xl mx-auto mb-8">
-                <span className="font-sans-editorial text-xs uppercase tracking-[0.2em] text-[#725b38] font-bold block mb-1">
+            <div className="bg-[#f5f3ee] p-5 sm:p-12 border border-[#e8e8e8] shadow-lg">
+              <div className="text-center max-w-xl mx-auto mb-6 sm:mb-8">
+                <span className="font-sans-editorial text-[10px] sm:text-xs uppercase tracking-[0.2em] text-[#725b38] font-bold block mb-1">
                   Private Salon VIP Consultation
                 </span>
-                <h2 className="font-serif-luxury text-3xl sm:text-4xl text-[#010101]">
+                <h2 className="font-serif-luxury text-2xl sm:text-4xl text-[#010101]">
                   Book a Private Store Viewing
                 </h2>
-                <p className="font-sans-editorial text-sm text-[#444748] mt-2">
+                <p className="font-sans-editorial text-xs sm:text-sm text-[#444748] mt-2">
                   Reserve a dedicated consultation room with our senior master silversmith for wedding trough planning or custom article commissions.
                 </p>
               </div>
 
               {booked ? (
-                <div className="bg-[#ffffff] p-8 text-center border border-[#c5a880] space-y-3">
+                <div className="bg-[#ffffff] p-6 sm:p-8 text-center border border-[#c5a880] space-y-3">
                   <CheckCircle className="w-10 h-10 text-[#725b38] mx-auto" />
-                  <h3 className="font-serif-luxury text-2xl text-[#010101]">
+                  <h3 className="font-serif-luxury text-xl sm:text-2xl text-[#010101]">
                     Appointment Reservation Received
                   </h3>
-                  <p className="font-sans-editorial text-sm text-[#444748]">
+                  <p className="font-sans-editorial text-xs sm:text-sm text-[#444748]">
                     Our concierge team will confirm your date ({bookingForm.date}) and call you at {bookingForm.phone}. Thank you!
                   </p>
                 </div>
@@ -85,7 +85,7 @@ export default function VisitStorePage() {
                         value={bookingForm.name}
                         onChange={(e) => setBookingForm({ ...bookingForm, name: e.target.value })}
                         placeholder="e.g. Ananya Sundaram"
-                        className="w-full bg-[#ffffff] p-3 border border-[#e8e8e8] focus:outline-none focus:border-[#010101]"
+                        className="w-full bg-[#ffffff] p-3 text-xs sm:text-sm border border-[#e8e8e8] focus:outline-none focus:border-[#010101] min-h-[44px]"
                       />
                     </div>
                     <div>
@@ -99,7 +99,7 @@ export default function VisitStorePage() {
                         value={bookingForm.phone}
                         onChange={(e) => setBookingForm({ ...bookingForm, phone: e.target.value })}
                         placeholder="+91 98765 43210"
-                        className="w-full bg-[#ffffff] p-3 border border-[#e8e8e8] focus:outline-none focus:border-[#010101]"
+                        className="w-full bg-[#ffffff] p-3 text-xs sm:text-sm border border-[#e8e8e8] focus:outline-none focus:border-[#010101] min-h-[44px]"
                       />
                     </div>
                   </div>
@@ -115,7 +115,7 @@ export default function VisitStorePage() {
                         required
                         value={bookingForm.date}
                         onChange={(e) => setBookingForm({ ...bookingForm, date: e.target.value })}
-                        className="w-full bg-[#ffffff] p-3 border border-[#e8e8e8] focus:outline-none focus:border-[#010101]"
+                        className="w-full bg-[#ffffff] p-3 text-xs sm:text-sm border border-[#e8e8e8] focus:outline-none focus:border-[#010101] min-h-[44px]"
                       />
                     </div>
                     <div>
@@ -126,7 +126,7 @@ export default function VisitStorePage() {
                         suppressHydrationWarning
                         value={bookingForm.categoryInterest}
                         onChange={(e) => setBookingForm({ ...bookingForm, categoryInterest: e.target.value })}
-                        className="w-full bg-[#ffffff] p-3 border border-[#e8e8e8] focus:outline-none cursor-pointer"
+                        className="w-full bg-[#ffffff] p-3 text-xs sm:text-sm border border-[#e8e8e8] focus:outline-none cursor-pointer min-h-[44px]"
                       >
                         <option value="Bridal Heirloom Silver">Bridal Heirloom Silver</option>
                         <option value="Pooja Sanctum Articles">Pooja Sanctum Articles</option>
@@ -146,20 +146,19 @@ export default function VisitStorePage() {
                       value={bookingForm.notes}
                       onChange={(e) => setBookingForm({ ...bookingForm, notes: e.target.value })}
                       placeholder="Specify estimated weight preferences, specific deepam sizes, or auspicious date requirements..."
-                      className="w-full bg-[#ffffff] p-3 border border-[#e8e8e8] focus:outline-none focus:border-[#010101]"
+                      className="w-full bg-[#ffffff] p-3 text-xs sm:text-sm border border-[#e8e8e8] focus:outline-none focus:border-[#010101]"
                     />
                   </div>
 
                   <button
                     suppressHydrationWarning
                     type="submit"
-                    className="w-full bg-[#010101] text-[#ffffff] font-sans-editorial text-xs uppercase tracking-[0.18em] py-4 shadow hover:bg-[#333333] transition-colors font-semibold flex items-center justify-center gap-2"
+                    className="btn-light-sweep w-full bg-[#010101] text-[#ffffff] font-sans-editorial text-xs uppercase tracking-[0.18em] py-3.5 sm:py-4 shadow hover:bg-[#333333] transition-colors font-semibold flex items-center justify-center gap-2 min-h-[48px]"
                   >
                     <Send className="w-4 h-4 text-[#c5a880]" />
                     <span>CONFIRM VIEWING RESERVATION</span>
                   </button>
                 </form>
-
               )}
             </div>
           </div>

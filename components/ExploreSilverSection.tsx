@@ -16,7 +16,7 @@ export function ExploreSilverSection() {
       image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCW7_d9BeF9-rkPp7KgexqRyKdBpMQCDz3AWVUEkvMyjrGpcGTq29MtqyB1K1yUmFgZUphYCEqqa-LO_WQ-Jz1gMWCbcT1dCVGWHigjiseuyPScOr8dRn1_UVnP-0Qk1hehK7Z8Wid4sTnzCCA8mpZtS1t3wNWr5KLuqVZChLB4GzN5HPDszV4-1POIwGptQHw2xyO5EVcKy2XcSZfu97kwjHRZc_D1o93WzDNbzDcfWR73CNVK5G4U",
       href: "/shop?category=rings",
       spanCols: "col-span-1 md:col-span-2 lg:col-span-2",
-      height: "h-[420px]",
+      height: "h-[280px] xs:h-[340px] sm:h-[400px] lg:h-[420px]",
     },
     {
       id: "divine",
@@ -26,7 +26,7 @@ export function ExploreSilverSection() {
       image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBebFltOEMAcE6R6mZ6Z1TBZfH4-TijfaIpJ__GrkTG0O29yBaY3abO2Jol3K4nvXyBF1AS-Hez068b7KSVSZYh1KHRXCPQwTUJMAFDani3kGocj-Rz6LWGSXwaVjigaazw-JBmCfAzeQF_u8vBFv0zzFLYnAWTCAT0DeXBM6RE6t2ztp-hodot759T_d38hxC__x7oD3TNdK6TKvh9n4bcwrvRqfAF3wIXdUrrMHuDswNK1MH68jTz",
       href: "/pooja-and-articles",
       spanCols: "col-span-1 md:col-span-1 lg:col-span-1",
-      height: "h-[420px]",
+      height: "h-[280px] xs:h-[340px] sm:h-[400px] lg:h-[420px]",
     },
     {
       id: "pooja",
@@ -36,7 +36,7 @@ export function ExploreSilverSection() {
       image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBJsJNjsfhqhYNiIY5kHFh5KqLUR1YdNJ2QA7P9EQi66BrSBPly29FOcKEBq4uARR1bSkJu3dM39RazWYcD8_1m9JGadeMHT0DFJDf2WezwBG5EQ-4eibd0CyPz8vb6umVlgsuoAhmQCCyPMBLEkX8qLuo-2acGSfi_KODdOj3kMX3GNB0THjMJiRAGB4rG5grn1kcXQLNNWcMaXsaimAr5Wx6J6ssLmLxF8Jy9M8LjcLhNtpwaEOZs",
       href: "/pooja-and-articles",
       spanCols: "col-span-1 md:col-span-1 lg:col-span-1",
-      height: "h-[380px]",
+      height: "h-[260px] xs:h-[300px] sm:h-[340px] lg:h-[380px]",
     },
     {
       id: "gifting",
@@ -46,7 +46,7 @@ export function ExploreSilverSection() {
       image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDL4ZHJballUMddbhgvJ07QygDrNZxq2vQ-msqoHsNhByUh7jbOpM6vrXsxNPn-bv3etyswE4p5D8FlXWIbkXViizn276ukWrMdMVxvTG3kc6ZN2GM4abAixgMDSG4cW7A3B1EQm5ZX--xTLPQLPh4PDvu8Lomk5lAERZylDSVs0cLlKYCg_jSlE2K0JyQFBXi1mCnz-IqFnOJTC9no3pXWc_zdYfU4wz3yk8Q2SbiVh8D5bPZIhxD7",
       href: "/shop?category=articles",
       spanCols: "col-span-1 md:col-span-1 lg:col-span-1",
-      height: "h-[380px]",
+      height: "h-[260px] xs:h-[300px] sm:h-[340px] lg:h-[380px]",
     },
     {
       id: "coins",
@@ -56,12 +56,12 @@ export function ExploreSilverSection() {
       image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBtMHNOlGI0dreKAMQAhRm7fEfRH-T9d157VYXs_7K--58_vo74cwDu9wIuJPNseR-dxeE7XB_PpuufVNK9oP03jenxjctjaVL1YHOCXZ7cVd75VAh40EWBDRdhfjkQKGW9vYR9A5gBL_Zh_09F32yCENYhVgGM15-0CXfO6s6uslwLn5Hry_yfVxLDh_7j9b3_coKy-WA6A4xkAxp-HUFA_3o9Vpg6IefBlDZ_XfGVgE77KHpu66wl",
       href: "/shop?category=coins",
       spanCols: "col-span-1 md:col-span-1 lg:col-span-1",
-      height: "h-[380px]",
+      height: "h-[260px] xs:h-[300px] sm:h-[340px] lg:h-[380px]",
     }
   ];
 
   return (
-    <section className="py-20 lg:py-28 bg-[#fbf9f4] relative overflow-hidden border-b border-[#e8e8e8]">
+    <section className="py-14 sm:py-20 lg:py-28 bg-[#fbf9f4] relative overflow-hidden border-b border-[#e8e8e8]">
       {/* Background Watermark */}
       <div className="absolute top-4 left-1/2 -translate-x-1/2 watermark-editorial text-7xl lg:text-[140px] whitespace-nowrap opacity-[0.03] select-none pointer-events-none">
         EXPLORE SILVER
@@ -117,17 +117,17 @@ export function ExploreSilverSection() {
                 </div>
 
                 {/* Card Content Overlay */}
-                <div className="absolute inset-0 p-6 lg:p-8 flex flex-col justify-end text-[#ffffff] z-10">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="font-sans-editorial text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-[#c5a880] font-bold">
+                <div className="absolute inset-0 p-4 sm:p-6 lg:p-8 flex flex-col justify-end text-[#ffffff] z-10">
+                  <div className="flex items-center justify-between mb-1.5 sm:mb-2">
+                    <span className="font-sans-editorial text-[9px] sm:text-[11px] uppercase tracking-[0.2em] sm:tracking-[0.25em] text-[#c5a880] font-bold">
                       {card.subtitle}
                     </span>
-                    <div className="w-9 h-9 rounded-full bg-[#ffffff]/10 backdrop-blur-md border border-[#ffffff]/20 flex items-center justify-center text-[#ffffff] transition-all duration-300 group-hover:bg-[#c5a880] group-hover:text-[#010101] group-hover:translate-x-1 group-hover:-translate-y-1">
-                      <ArrowUpRight className="w-4 h-4" />
+                    <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#ffffff]/10 backdrop-blur-md border border-[#ffffff]/20 flex items-center justify-center text-[#ffffff] transition-all duration-300 group-hover:bg-[#c5a880] group-hover:text-[#010101] group-hover:translate-x-1 group-hover:-translate-y-1">
+                      <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                     </div>
                   </div>
 
-                  <h3 className="font-serif-luxury text-2xl sm:text-3xl text-[#ffffff] tracking-wide mb-2 transition-transform duration-300 group-hover:translate-x-1">
+                  <h3 className="font-serif-luxury text-xl sm:text-2xl lg:text-3xl text-[#ffffff] tracking-wide mb-1 sm:mb-2 transition-transform duration-300 group-hover:translate-x-1">
                     {card.title}
                   </h3>
                   <p className="font-sans-editorial text-xs text-[#e4e2dd] line-clamp-2 max-w-lg transition-transform duration-300 group-hover:translate-x-1">

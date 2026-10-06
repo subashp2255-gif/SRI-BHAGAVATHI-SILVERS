@@ -61,7 +61,7 @@ export default function OccasionsPage() {
         </div>
 
         {/* EDITORIAL HERO */}
-        <section className="relative w-full py-20 lg:py-28 bg-[#0a0b0d] text-[#ffffff] overflow-hidden border-b border-[#c5a880]/20">
+        <section className="relative w-full py-14 sm:py-20 lg:py-28 bg-[#0a0b0d] text-[#ffffff] overflow-hidden border-b border-[#c5a880]/20">
           <div className="absolute inset-0 z-0">
             <img
               src="https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=2000&q=85"
@@ -83,22 +83,22 @@ export default function OccasionsPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
-              className="space-y-4"
+              className="space-y-3 sm:space-y-4"
             >
-              <div className="inline-flex items-center gap-2 text-[#c5a880] font-sans-editorial text-xs uppercase tracking-[0.25em] font-bold">
-                <Sparkles className="w-4 h-4 text-[#c5a880] animate-pulse" />
+              <div className="inline-flex items-center gap-2 text-[#c5a880] font-sans-editorial text-[11px] sm:text-xs uppercase tracking-[0.25em] font-bold">
+                <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#c5a880] animate-pulse" />
                 <span>CURATED MOMENTS & HEIRLOOMS</span>
               </div>
 
-              <h1 className="font-serif-luxury text-4xl sm:text-6xl lg:text-7xl text-[#ffffff] tracking-tight font-normal leading-tight">
+              <h1 className="font-serif-luxury text-3xl sm:text-6xl lg:text-7xl text-[#ffffff] tracking-tight font-normal leading-tight">
                 SILVER FOR EVERY MOMENT
               </h1>
 
-              <p className="font-serif-luxury text-lg sm:text-2xl text-[#c5a880] italic max-w-2xl mx-auto">
+              <p className="font-serif-luxury text-base sm:text-2xl text-[#c5a880] italic max-w-2xl mx-auto">
                 Celebrate meaningful moments with timeless silver.
               </p>
 
-              <p className="font-sans-editorial text-xs sm:text-sm text-[#a4a7a7] max-w-xl mx-auto leading-relaxed pt-2">
+              <p className="font-sans-editorial text-xs sm:text-sm text-[#a4a7a7] max-w-xl mx-auto leading-relaxed pt-1 sm:pt-2">
                 Explore certified 925 sterling & 999 fine silver collections specifically curated for weddings, housewarmings, birth ceremonies, and sacred pooja rituals.
               </p>
             </motion.div>
@@ -106,17 +106,17 @@ export default function OccasionsPage() {
         </section>
 
         {/* OCCASION CATEGORIES GRID */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 border-b border-[#e8e8e8] pb-6 gap-4">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-24">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 sm:mb-12 border-b border-[#e8e8e8] pb-4 sm:pb-6 gap-3 sm:gap-4">
             <div>
-              <span className="font-sans-editorial text-xs uppercase tracking-[0.2em] text-[#725b38] font-bold block mb-1">
+              <span className="font-sans-editorial text-[10px] sm:text-xs uppercase tracking-[0.2em] text-[#725b38] font-bold block mb-1">
                 DISCOVER BY CELEBRATION
               </span>
-              <h2 className="font-serif-luxury text-3xl sm:text-4xl text-[#010101] tracking-tight">
+              <h2 className="font-serif-luxury text-2xl sm:text-4xl text-[#010101] tracking-tight">
                 SELECT AN OCCASION
               </h2>
             </div>
-            <span className="font-sans-editorial text-xs text-[#725b38] font-semibold">
+            <span className="font-sans-editorial text-[11px] sm:text-xs text-[#725b38] font-semibold">
               Certified BIS Hallmarked Silver • 8 Curated Categories
             </span>
           </div>
@@ -125,7 +125,7 @@ export default function OccasionsPage() {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-8"
           >
             {OCCASIONS.map((occ) => {
               const productCount = PRODUCTS.filter((p) =>
@@ -157,7 +157,7 @@ export default function OccasionsPage() {
                     </div>
 
                     {/* Content */}
-                    <div className="p-6 flex flex-col justify-between flex-grow space-y-4">
+                    <div className="p-4 sm:p-6 flex flex-col justify-between flex-grow space-y-3 sm:space-y-4">
                       <div>
                         <span className="font-sans-editorial text-[10px] uppercase tracking-widest text-[#725b38] font-bold block mb-1">
                           {occ.tagline}

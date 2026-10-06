@@ -123,20 +123,20 @@ export function Navbar({
             : "bg-[#fbf9f4]/90 backdrop-blur-sm border-b border-[#e8e8e8]/50"
         }`}
       >
-        <div className="max-w-7xl mx-auto pl-1 sm:pl-4 pr-2 sm:pr-6 lg:px-8 h-16 sm:h-24 flex items-center justify-between gap-1 sm:gap-4">
-          <Link href="/" className="flex items-center gap-1 sm:gap-2.5 group shrink-0">
+        <div className="max-w-7xl mx-auto px-2.5 sm:px-6 lg:px-8 h-16 sm:h-24 flex items-center justify-between gap-1 sm:gap-4">
+          <Link href="/" className="flex items-center gap-1.5 sm:gap-2.5 group shrink-0">
             <div className="shrink-0 flex items-center justify-center py-0.5 sm:py-1">
               <img
                 src="/logo-emblem.png"
                 alt="Sri Bagavathi Silvers Emblem Logo"
-                className="h-8 sm:h-14 lg:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                className="h-9 xs:h-11 sm:h-14 lg:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
               />
             </div>
             <div className="flex flex-col shrink-0">
-              <span className="font-serif-luxury text-xs sm:text-lg lg:text-xl tracking-[0.06em] sm:tracking-[0.15em] uppercase text-[#010101] font-semibold whitespace-nowrap">
+              <span className="font-serif-luxury text-xs xs:text-sm sm:text-lg lg:text-xl tracking-[0.06em] sm:tracking-[0.15em] uppercase text-[#010101] font-semibold whitespace-nowrap">
                 Sri Bagavathi
               </span>
-              <span className="font-sans-editorial text-[7.5px] sm:text-[10px] lg:text-[11px] tracking-[0.08em] sm:tracking-[0.2em] text-[#725b38] uppercase font-bold flex items-center gap-0.5 sm:gap-1 whitespace-nowrap">
+              <span className="font-sans-editorial text-[8px] xs:text-[9px] sm:text-[10px] lg:text-[11px] tracking-[0.08em] sm:tracking-[0.2em] text-[#725b38] uppercase font-bold flex items-center gap-0.5 sm:gap-1 whitespace-nowrap">
                 Silvers <span className="text-[#c5a880]">•</span> Hallmark 925
               </span>
             </div>
@@ -308,23 +308,23 @@ export function Navbar({
           </nav>
 
           {/* Right Utilities (Search, Account, Wishlist, Cart) */}
-          <div className="flex items-center gap-0.5 sm:gap-3 shrink-0">
+          <div className="flex items-center gap-1 sm:gap-2 shrink-0">
             <button
               suppressHydrationWarning
               onClick={onOpenSearch}
               aria-label="Search Boutique"
-              className="p-1 sm:p-2 text-[#444748] hover:text-[#010101] transition-colors rounded-full hover:bg-[#f0eee9]"
+              className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center text-[#444748] hover:text-[#010101] transition-colors rounded-full hover:bg-[#f0eee9]"
             >
               <Search className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
 
             {/* Instagram Navbar Button */}
-            <InstagramButton onClick={() => setInstagramOpen(true)} className="!p-1 sm:!p-2" />
+            <InstagramButton onClick={() => setInstagramOpen(true)} className="!w-9 !h-9 sm:!w-10 sm:!h-10 !p-0 flex items-center justify-center" />
 
             <Link
               href="/contact"
               aria-label="Account / Concierge"
-              className="hidden md:flex p-2 text-[#444748] hover:text-[#010101] transition-colors rounded-full hover:bg-[#f0eee9]"
+              className="hidden md:flex w-10 h-10 items-center justify-center text-[#444748] hover:text-[#010101] transition-colors rounded-full hover:bg-[#f0eee9]"
             >
               <User className="w-5 h-5" />
             </Link>
@@ -333,11 +333,11 @@ export function Navbar({
               suppressHydrationWarning
               onClick={onOpenWishlist}
               aria-label="Wishlist"
-              className="relative p-1 sm:p-2 text-[#444748] hover:text-[#010101] transition-colors rounded-full hover:bg-[#f0eee9]"
+              className="relative w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center text-[#444748] hover:text-[#010101] transition-colors rounded-full hover:bg-[#f0eee9]"
             >
               <Heart className="w-4 h-4 sm:w-5 sm:h-5" />
               {wishlistCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 bg-[#725b38] text-[#ffffff] font-sans-editorial text-[8px] sm:text-[10px] font-bold rounded-full h-3.5 w-3.5 sm:h-4.5 sm:w-4.5 flex items-center justify-center shadow-sm">
+                <span className="absolute top-1 right-1 bg-[#725b38] text-[#ffffff] font-sans-editorial text-[8px] sm:text-[10px] font-bold rounded-full h-3.5 w-3.5 sm:h-4 sm:w-4 flex items-center justify-center shadow-sm">
                   {wishlistCount}
                 </span>
               )}
@@ -347,11 +347,11 @@ export function Navbar({
               suppressHydrationWarning
               onClick={onOpenCart}
               aria-label="Shopping Bag"
-              className="relative p-1 sm:p-2 text-[#444748] hover:text-[#010101] transition-colors rounded-full hover:bg-[#f0eee9]"
+              className="relative w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center text-[#444748] hover:text-[#010101] transition-colors rounded-full hover:bg-[#f0eee9]"
             >
               <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5" />
               {cartCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 bg-[#010101] text-[#ffffff] font-sans-editorial text-[8px] sm:text-[10px] font-bold rounded-full h-3.5 w-3.5 sm:h-4.5 sm:w-4.5 flex items-center justify-center shadow-sm">
+                <span className="absolute top-1 right-1 bg-[#010101] text-[#ffffff] font-sans-editorial text-[8px] sm:text-[10px] font-bold rounded-full h-3.5 w-3.5 sm:h-4 sm:w-4 flex items-center justify-center shadow-sm">
                   {cartCount}
                 </span>
               )}
@@ -362,7 +362,7 @@ export function Navbar({
               suppressHydrationWarning
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle Menu"
-              className="xl:hidden p-1 sm:p-2 text-[#010101] hover:bg-[#f0eee9] transition-colors"
+              className="xl:hidden w-10 h-10 flex items-center justify-center text-[#010101] hover:bg-[#f0eee9] transition-colors rounded-md"
             >
               {mobileMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
             </button>
@@ -377,7 +377,7 @@ export function Navbar({
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="xl:hidden bg-[#fbf9f4] border-b border-[#e8e8e8] shadow-2xl overflow-y-auto max-h-[85vh]"
+            className="xl:hidden bg-[#fbf9f4] border-b border-[#e8e8e8] shadow-2xl overflow-y-auto max-h-[calc(100vh-100px)]"
           >
             <div className="px-6 py-6 space-y-4 max-w-md mx-auto">
               <div className="flex items-center gap-2 pb-3 border-b border-[#e8e8e8] text-[#725b38] font-sans-editorial text-xs uppercase tracking-widest font-semibold">

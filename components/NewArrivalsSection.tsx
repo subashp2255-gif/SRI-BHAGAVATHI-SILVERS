@@ -17,7 +17,7 @@ export function NewArrivalsSection({ onQuickView }: NewArrivalsProps) {
   const supportingProducts = newArrivals.slice(1, 5);
 
   return (
-    <section className="py-20 lg:py-28 bg-[#fbf9f4] border-b border-[#e8e8e8] relative overflow-hidden">
+    <section className="py-14 sm:py-20 lg:py-28 bg-[#fbf9f4] border-b border-[#e8e8e8] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -25,20 +25,20 @@ export function NewArrivalsSection({ onQuickView }: NewArrivalsProps) {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="flex flex-col md:flex-row md:items-end justify-between mb-12 border-b border-[#e8e8e8] pb-6 gap-4"
+          className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-12 border-b border-[#e8e8e8] pb-4 sm:pb-6 gap-4"
         >
           <div>
-            <div className="flex items-center gap-2 text-[#725b38] font-sans-editorial text-xs uppercase tracking-[0.25em] font-semibold mb-2">
-              <Sparkles className="w-4 h-4 text-[#c5a880]" />
+            <div className="flex items-center gap-2 text-[#725b38] font-sans-editorial text-[11px] sm:text-xs uppercase tracking-[0.25em] font-semibold mb-1.5 sm:mb-2">
+              <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#c5a880]" />
               Fresh From Master Workshops
             </div>
-            <h2 className="font-serif-luxury text-3xl sm:text-4xl lg:text-5xl text-[#010101] tracking-tight">
+            <h2 className="font-serif-luxury text-2xl sm:text-4xl lg:text-5xl text-[#010101] tracking-tight">
               NEW ARRIVALS
             </h2>
           </div>
           <Link
             href="/shop?sort=newest"
-            className="inline-flex items-center gap-2 font-sans-editorial text-xs uppercase tracking-[0.2em] font-bold text-[#010101] hover:text-[#725b38] transition-colors"
+            className="inline-flex items-center gap-2 font-sans-editorial text-xs uppercase tracking-[0.2em] font-bold text-[#010101] hover:text-[#725b38] transition-colors py-1"
           >
             <span>View All New Releases</span>
             <ArrowRight className="w-4 h-4" />
@@ -51,16 +51,19 @@ export function NewArrivalsSection({ onQuickView }: NewArrivalsProps) {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-8"
+          className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8"
         >
           {/* Featured Spotlight Card (Left 5 Cols) */}
           <motion.div
             variants={fadeUp}
-            className="lg:col-span-5 bg-[#ffffff] border border-[#e8e8e8] p-6 lg:p-8 flex flex-col justify-between group metallic-sheen"
+            className="lg:col-span-5 bg-[#ffffff] border border-[#e8e8e8] p-4 sm:p-6 lg:p-8 flex flex-col justify-between group metallic-sheen"
           >
             <div>
-              <div className="relative w-full h-[360px] lg:h-[420px] overflow-hidden mb-6 bg-[#f5f3ee]">
-                <span className="absolute top-4 left-4 z-10 bg-[#010101] text-[#ffffff] font-sans-editorial text-[10px] uppercase tracking-widest px-3 py-1 font-bold">
+              <div 
+                onClick={() => onQuickView(featuredProduct)}
+                className="relative w-full h-[240px] xs:h-[290px] sm:h-[360px] lg:h-[420px] overflow-hidden mb-4 sm:mb-6 bg-[#f5f3ee] cursor-pointer"
+              >
+                <span className="absolute top-3 left-3 sm:top-4 sm:left-4 z-10 bg-[#010101] text-[#ffffff] font-sans-editorial text-[9px] sm:text-[10px] uppercase tracking-widest px-2.5 py-1 font-bold">
                   {featuredProduct.purityBadge || "NEW RELEASE"}
                 </span>
                 <img
@@ -71,8 +74,11 @@ export function NewArrivalsSection({ onQuickView }: NewArrivalsProps) {
                 <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
                   <button
                     suppressHydrationWarning
-                    onClick={() => onQuickView(featuredProduct)}
-                    className="p-3 bg-[#ffffff] text-[#010101] rounded-full hover:bg-[#725b38] hover:text-[#ffffff] transition-colors shadow-lg"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onQuickView(featuredProduct);
+                    }}
+                    className="p-3 bg-[#ffffff] text-[#010101] rounded-full hover:bg-[#725b38] hover:text-[#ffffff] transition-colors shadow-lg min-w-[44px] min-h-[44px] flex items-center justify-center"
                     aria-label="Quick View"
                   >
                     <Eye className="w-5 h-5" />
@@ -80,10 +86,13 @@ export function NewArrivalsSection({ onQuickView }: NewArrivalsProps) {
                 </div>
               </div>
 
-              <span className="font-sans-editorial text-[11px] uppercase tracking-widest text-[#725b38] font-semibold block mb-1">
+              <span className="font-sans-editorial text-[10px] sm:text-[11px] uppercase tracking-widest text-[#725b38] font-semibold block mb-1">
                 {featuredProduct.categoryLabel}
               </span>
-              <h3 className="font-serif-luxury text-2xl text-[#010101] mb-2 font-semibold">
+              <h3 
+                onClick={() => onQuickView(featuredProduct)}
+                className="font-serif-luxury text-xl sm:text-2xl text-[#010101] mb-2 font-semibold cursor-pointer hover:text-[#725b38] transition-colors"
+              >
                 {featuredProduct.name}
               </h3>
               <p className="font-sans-editorial text-xs text-[#444748] line-clamp-2 mb-4">
@@ -92,13 +101,13 @@ export function NewArrivalsSection({ onQuickView }: NewArrivalsProps) {
             </div>
 
             <div className="flex items-center justify-between pt-4 border-t border-[#e8e8e8]">
-              <span className="font-serif-luxury text-xl font-bold text-[#010101]">
+              <span className="font-serif-luxury text-lg sm:text-xl font-bold text-[#010101]">
                 {featuredProduct.formattedPrice}
               </span>
               <button
                 suppressHydrationWarning
                 onClick={() => onQuickView(featuredProduct)}
-                className="font-sans-editorial text-xs uppercase tracking-widest font-bold text-[#010101] hover:text-[#725b38] flex items-center gap-1"
+                className="font-sans-editorial text-xs uppercase tracking-widest font-bold text-[#010101] hover:text-[#725b38] flex items-center gap-1.5 py-1.5"
               >
                 Quick View <ArrowRight className="w-3.5 h-3.5" />
               </button>
@@ -111,11 +120,14 @@ export function NewArrivalsSection({ onQuickView }: NewArrivalsProps) {
               <motion.div
                 key={product.id}
                 variants={staggerItem}
-                className="bg-[#ffffff] border border-[#e8e8e8] p-4 flex flex-col justify-between group hover:border-[#725b38] transition-colors metallic-sheen"
+                className="bg-[#ffffff] border border-[#e8e8e8] p-3 sm:p-4 flex flex-col justify-between group hover:border-[#725b38] transition-colors metallic-sheen"
               >
                 <div>
-                  <div className="relative w-full h-[220px] overflow-hidden mb-4 bg-[#f5f3ee]">
-                    <span className="absolute top-2 left-2 z-10 bg-[#725b38] text-[#ffffff] font-sans-editorial text-[9px] uppercase tracking-widest px-2 py-0.5 font-bold">
+                  <div 
+                    onClick={() => onQuickView(product)}
+                    className="relative w-full h-[150px] xs:h-[180px] sm:h-[220px] overflow-hidden mb-3 sm:mb-4 bg-[#f5f3ee] cursor-pointer"
+                  >
+                    <span className="absolute top-2 left-2 z-10 bg-[#725b38] text-[#ffffff] font-sans-editorial text-[8px] sm:text-[9px] uppercase tracking-widest px-2 py-0.5 font-bold">
                       {product.purityBadge}
                     </span>
                     <img
@@ -126,8 +138,11 @@ export function NewArrivalsSection({ onQuickView }: NewArrivalsProps) {
                     <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                       <button
                         suppressHydrationWarning
-                        onClick={() => onQuickView(product)}
-                        className="p-2.5 bg-[#ffffff] text-[#010101] rounded-full hover:bg-[#725b38] hover:text-[#ffffff] transition-colors shadow-md"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onQuickView(product);
+                        }}
+                        className="p-2.5 bg-[#ffffff] text-[#010101] rounded-full hover:bg-[#725b38] hover:text-[#ffffff] transition-colors shadow-md min-w-[40px] min-h-[40px] flex items-center justify-center"
                         aria-label="Quick View"
                       >
                         <Eye className="w-4 h-4" />
@@ -135,19 +150,22 @@ export function NewArrivalsSection({ onQuickView }: NewArrivalsProps) {
                     </div>
                   </div>
 
-                  <span className="font-sans-editorial text-[10px] uppercase tracking-widest text-[#725b38] font-bold block mb-1">
+                  <span className="font-sans-editorial text-[9px] sm:text-[10px] uppercase tracking-widest text-[#725b38] font-bold block mb-1">
                     {product.categoryLabel}
                   </span>
-                  <h4 className="font-serif-luxury text-base text-[#010101] font-semibold line-clamp-1 mb-1">
+                  <h4 
+                    onClick={() => onQuickView(product)}
+                    className="font-serif-luxury text-sm sm:text-base text-[#010101] font-semibold line-clamp-1 mb-1 cursor-pointer hover:text-[#725b38] transition-colors"
+                  >
                     {product.name}
                   </h4>
                 </div>
 
-                <div className="flex items-center justify-between pt-3 border-t border-[#f0eee9] mt-2">
-                  <span className="font-serif-luxury text-base font-bold text-[#010101]">
+                <div className="flex items-center justify-between pt-2.5 sm:pt-3 border-t border-[#f0eee9] mt-2">
+                  <span className="font-serif-luxury text-sm sm:text-base font-bold text-[#010101]">
                     {product.formattedPrice}
                   </span>
-                  <span className="font-sans-editorial text-[10px] text-[#725b38] uppercase tracking-wider font-semibold">
+                  <span className="font-sans-editorial text-[9px] sm:text-[10px] text-[#725b38] uppercase tracking-wider font-semibold">
                     {product.netWeight}
                   </span>
                 </div>

@@ -66,7 +66,7 @@ export function QuickViewModal({
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
         {/* Backdrop */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -81,19 +81,19 @@ export function QuickViewModal({
           initial={{ opacity: 0, scale: 0.96, y: 12 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: 12 }}
-          className="relative bg-[#ffffff] w-full max-w-4xl shadow-2xl border border-[#e8e8e8] z-10 overflow-hidden my-8"
+          className="relative bg-[#ffffff] w-full max-w-4xl max-h-[92vh] overflow-y-auto shadow-2xl border border-[#e8e8e8] z-10 my-auto"
         >
           {/* Enhanced Close button with 48x48px touch target */}
           <button
             suppressHydrationWarning
             onClick={onClose}
             aria-label="Close product quick view"
-            className="absolute top-3 right-3 z-30 w-12 h-12 flex items-center justify-center text-[#444748] hover:text-[#010101] bg-[#f5f3ee] hover:bg-[#eae8e3] transition-colors border border-[#e8e8e8]"
+            className="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 z-30 w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center text-[#444748] hover:text-[#010101] bg-[#f5f3ee] hover:bg-[#eae8e3] transition-colors border border-[#e8e8e8]"
           >
             <X className="w-5 h-5" />
           </button>
 
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 p-6 sm:p-8">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-6 p-4 sm:p-8">
             {/* Left Image Media Panel */}
             <div className="md:col-span-6 flex flex-col gap-3">
               <div className="relative aspect-[3/4] w-full bg-[#f5f3ee] border border-[#e8e8e8] overflow-hidden group">

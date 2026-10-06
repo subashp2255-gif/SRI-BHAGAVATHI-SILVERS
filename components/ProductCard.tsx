@@ -43,7 +43,10 @@ export function ProductCard({
       data-cursor="QUICK VIEW"
     >
       {/* Image Plinth Container */}
-      <div className="aspect-[3/4] w-full bg-[#f5f3ee] overflow-hidden relative mb-2.5 sm:mb-4 border border-[#e8e8e8]/50">
+      <div 
+        onClick={() => onQuickView && onQuickView(product)}
+        className="aspect-[3/4] w-full bg-[#f5f3ee] overflow-hidden relative mb-2.5 sm:mb-4 border border-[#e8e8e8]/50 cursor-pointer"
+      >
         <Image
           src={product.image}
           alt={product.name}
@@ -62,7 +65,7 @@ export function ProductCard({
           suppressHydrationWarning
           onClick={handleWishlist}
           aria-label="Add to Wishlist"
-          className={`absolute top-1.5 right-1.5 sm:top-2.5 sm:right-2.5 p-2 sm:p-2.5 rounded-full transition-all duration-300 z-10 ${
+          className={`absolute top-1.5 right-1.5 sm:top-2.5 sm:right-2.5 p-2 sm:p-2.5 rounded-full transition-all duration-300 z-10 min-w-[36px] min-h-[36px] flex items-center justify-center ${
             wish
               ? "bg-[#725b38] text-[#ffffff] shadow-md scale-110"
               : "bg-[#ffffff]/90 hover:bg-[#ffffff] text-[#444748] hover:text-[#010101]"
@@ -75,7 +78,10 @@ export function ProductCard({
         <div className="absolute inset-x-0 bottom-0 p-2 sm:p-3 bg-gradient-to-t from-[#010101]/85 via-[#010101]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
           <button
             suppressHydrationWarning
-            onClick={() => onQuickView && onQuickView(product)}
+            onClick={(e) => {
+              e.stopPropagation();
+              onQuickView && onQuickView(product);
+            }}
             className="btn-light-sweep bg-[#fbf9f4] text-[#010101] font-sans-editorial text-[9px] sm:text-[11px] uppercase tracking-widest px-3 py-1.5 sm:px-4 sm:py-2 shadow hover:bg-[#f0eee9] transition-colors flex items-center gap-1 font-semibold"
           >
             <Eye className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#725b38]" /> Quick View
@@ -89,7 +95,10 @@ export function ProductCard({
           <p className="font-sans-editorial text-[9px] sm:text-[11px] text-[#725b38] uppercase tracking-widest mb-0.5 sm:mb-1 font-semibold">
             Net Wt: {product.netWeight}
           </p>
-          <h3 className="font-serif-luxury text-xs sm:text-base text-[#010101] mb-1.5 sm:mb-2 group-hover:text-[#725b38] transition-colors line-clamp-2 font-medium leading-snug">
+          <h3 
+            onClick={() => onQuickView && onQuickView(product)}
+            className="font-serif-luxury text-xs sm:text-base text-[#010101] mb-1.5 sm:mb-2 group-hover:text-[#725b38] transition-colors line-clamp-2 font-medium leading-snug cursor-pointer"
+          >
             {product.name}
           </h3>
         </div>
@@ -107,7 +116,7 @@ export function ProductCard({
           <button
             suppressHydrationWarning
             onClick={handleWhatsApp}
-            className="btn-light-sweep w-full py-2 px-2 sm:px-3 bg-[#f5f3ee] hover:bg-[#eae8e3] text-[#010101] font-sans-editorial text-[10px] sm:text-[11px] uppercase tracking-wider transition-colors flex items-center justify-center gap-1 border border-[#e8e8e8] font-semibold"
+            className="btn-light-sweep w-full min-h-[38px] sm:min-h-[40px] py-2 px-2 sm:px-3 bg-[#f5f3ee] hover:bg-[#eae8e3] text-[#010101] font-sans-editorial text-[10px] sm:text-[11px] uppercase tracking-wider transition-colors flex items-center justify-center gap-1 border border-[#e8e8e8] font-semibold"
           >
             <MessageCircle className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#725b38]" />
             <span>Enquire</span>

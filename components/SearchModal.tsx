@@ -51,7 +51,7 @@ export function SearchModal({ isOpen, onClose, onSelectProduct }: SearchModalPro
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 px-4 sm:px-6">
+      <div className="fixed inset-0 z-50 flex items-start justify-center pt-4 sm:pt-24 px-3 sm:px-6">
         {/* Dark Frosted Glass Backdrop */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -67,10 +67,10 @@ export function SearchModal({ isOpen, onClose, onSelectProduct }: SearchModalPro
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: -20 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
-          className="relative bg-[#ffffff] w-full max-w-2xl border border-[#c5a880]/40 shadow-2xl z-10 overflow-hidden rounded-sm metallic-sheen"
+          className="relative bg-[#ffffff] w-full max-w-2xl border border-[#c5a880]/40 shadow-2xl z-10 overflow-hidden rounded-sm metallic-sheen my-auto sm:my-0"
         >
           {/* Top Search Input Header Bar */}
-          <div className="relative flex items-center gap-3 p-4 sm:p-5 border-b border-[#e8e8e8] bg-[#fbf9f4]">
+          <div className="relative flex items-center gap-2.5 sm:gap-3 p-3.5 sm:p-5 border-b border-[#e8e8e8] bg-[#fbf9f4]">
             <Search className="w-5 h-5 text-[#c5a880] shrink-0" />
             
             <input
@@ -79,8 +79,8 @@ export function SearchModal({ isOpen, onClose, onSelectProduct }: SearchModalPro
               autoFocus
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search silver anklets, Kamakshi deepam, Kasu Mala..."
-              className="flex-grow bg-transparent font-sans-editorial text-sm sm:text-base text-[#010101] focus:outline-none placeholder-[#888888] tracking-wide"
+              placeholder="Search silver anklets, deepam, Kasu Mala..."
+              className="flex-grow bg-transparent font-sans-editorial text-sm sm:text-base text-[#010101] focus:outline-none placeholder-[#888888] tracking-wide min-h-[40px]"
             />
 
             {/* Clear Input Icon */}
@@ -88,7 +88,7 @@ export function SearchModal({ isOpen, onClose, onSelectProduct }: SearchModalPro
               <button
                 suppressHydrationWarning
                 onClick={() => setQuery("")}
-                className="p-1 text-[#888888] hover:text-[#010101] transition-colors"
+                className="w-8 h-8 flex items-center justify-center text-[#888888] hover:text-[#010101] transition-colors"
                 title="Clear input"
               >
                 <X className="w-4 h-4" />
@@ -100,11 +100,11 @@ export function SearchModal({ isOpen, onClose, onSelectProduct }: SearchModalPro
               ESC
             </span>
 
-            {/* Close Button */}
+            {/* Close Button with 44px Touch Target */}
             <button
               suppressHydrationWarning
               onClick={onClose}
-              className="p-2 text-[#444748] hover:text-[#010101] hover:bg-[#eae8e3] transition-colors rounded-full"
+              className="w-10 h-10 flex items-center justify-center text-[#444748] hover:text-[#010101] hover:bg-[#eae8e3] transition-colors rounded-full shrink-0"
               aria-label="Close Search Modal"
             >
               <X className="w-5 h-5" />
@@ -112,7 +112,7 @@ export function SearchModal({ isOpen, onClose, onSelectProduct }: SearchModalPro
           </div>
 
           {/* Results / Suggestions Area */}
-          <div className="p-5 sm:p-6 max-h-[65vh] overflow-y-auto font-sans-editorial">
+          <div className="p-4 sm:p-6 max-h-[70vh] sm:max-h-[65vh] overflow-y-auto font-sans-editorial">
             {/* 1. Empty Query State: Show Popular Searches */}
             {!query.trim() && (
               <div className="space-y-5">
