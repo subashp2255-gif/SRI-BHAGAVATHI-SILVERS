@@ -2,86 +2,54 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowRight, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
-import { fadeUp, slideReveal } from "@/lib/animations";
+import { fadeUp } from "@/lib/animations";
 
 export function FeaturedCollectionSection() {
   return (
-    <section className="py-14 sm:py-20 lg:py-32 bg-[#010101] text-[#ffffff] relative overflow-hidden border-b border-[#333333]">
-      {/* Background Watermark */}
-      <div className="absolute top-1/2 -translate-y-1/2 left-0 watermark-editorial-dark text-6xl sm:text-7xl lg:text-[160px] opacity-[0.03] select-none pointer-events-none whitespace-nowrap">
+    <section className="py-16 sm:py-20 lg:py-24 bg-[#050505] text-[#ffffff] relative overflow-hidden border-b border-[#222222]">
+      {/* Subtle Background Watermark */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 watermark-editorial-dark text-5xl sm:text-7xl lg:text-[130px] opacity-[0.025] select-none pointer-events-none whitespace-nowrap">
         SANCTUM COLLECTION
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* Dominating Asymmetric Campaign Image */}
-          <motion.div
-            variants={slideReveal}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            className="lg:col-span-7 relative group"
-          >
-            <div className="relative w-full h-[280px] xs:h-[360px] sm:h-[480px] lg:h-[650px] overflow-hidden border border-[#333333] metallic-sheen">
-              <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBebFltOEMAcE6R6mZ6Z1TBZfH4-TijfaIpJ__GrkTG0O29yBaY3abO2Jol3K4nvXyBF1AS-Hez068b7KSVSZYh1KHRXCPQwTUJMAFDani3kGocj-Rz6LWGSXwaVjigaazw-JBmCfAzeQF_u8vBFv0zzFLYnAWTCAT0DeXBM6RE6t2ztp-hodot759T_d38hxC__x7oD3TNdK6TKvh9n4bcwrvRqfAF3wIXdUrrMHuDswNK1MH68jTz"
-                alt="Sanctum & Temple Heritage Collection"
-                className="w-full h-full object-cover object-center transition-transform duration-1000 ease-out group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#010101] via-transparent to-transparent opacity-60" />
-            </div>
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          className="max-w-[680px] mx-auto flex flex-col items-center text-center space-y-6 sm:space-y-8"
+        >
+          {/* Eyebrow */}
+          <div className="inline-flex items-center gap-2 text-[#c5a880] font-sans-editorial text-[11px] sm:text-xs uppercase tracking-[0.25em] font-semibold">
+            <span>✦</span>
+            <span>HERITAGE EDITION 2026</span>
+          </div>
 
-            {/* Floating Tag */}
-            <div className="absolute top-3.5 left-3.5 sm:top-6 sm:left-6 bg-[#010101]/90 backdrop-blur-md px-3 py-1 sm:px-4 sm:py-2 border border-[#c5a880] text-[#c5a880] font-sans-editorial text-[9px] sm:text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.25em] font-bold">
-              SPOTLIGHT COLLECTION
-            </div>
-          </motion.div>
+          {/* Main Heading */}
+          <h2 className="font-serif-luxury text-3xl sm:text-4xl lg:text-5xl text-[#ffffff] tracking-tight leading-[1.2] max-w-xl">
+            Sanctum &amp; Temple<br className="hidden sm:inline" /> Heritage Collection
+          </h2>
 
-          {/* Asymmetric Content Column */}
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            className="lg:col-span-5 flex flex-col justify-center space-y-4 sm:space-y-6"
-          >
-            <div className="flex items-center gap-2 text-[#c5a880] font-sans-editorial text-xs uppercase tracking-[0.25em] font-semibold">
-              <Sparkles className="w-4 h-4" />
-              Heritage Edition 2026
-            </div>
+          {/* Descriptive Paragraph */}
+          <p className="font-sans-editorial text-sm sm:text-base text-[#c4c7c7] leading-relaxed max-w-xl mx-auto">
+            Consecrated in spirit and forged with ancestral precision, our Sanctum Collection brings together heavy 999 fine silver Kalash vessels, tall Kamakshi deepams, and authentic South Indian temple Kemp ornaments.
+          </p>
 
-            <h2 className="font-serif-luxury text-2xl sm:text-4xl lg:text-5xl text-[#ffffff] tracking-tight leading-[1.15]">
-              Sanctum & Temple Heritage Collection
-            </h2>
-
-            <p className="font-sans-editorial text-sm sm:text-base text-[#c4c7c7] leading-relaxed">
-              Consecrated in spirit and forged with ancestral precision, our Sanctum Collection brings together heavy 999 fine silver Kalash vessels, tall Kamakshi deepams, and authentic South Indian temple Kemp ornaments.
-            </p>
-
-            <div className="pt-3 sm:pt-4 space-y-2.5 sm:space-y-3 border-t border-[#222222]">
-              <div className="flex items-center justify-between font-sans-editorial text-xs text-[#e4e2dd]">
-                <span className="text-[#888888]">Material Purity</span>
-                <span className="font-bold text-[#c5a880]">99.9 Fine Silver / 92.5 Hallmark</span>
-              </div>
-              <div className="flex items-center justify-between font-sans-editorial text-xs text-[#e4e2dd]">
-                <span className="text-[#888888]">Artisan Heritage</span>
-                <span className="font-bold">Hereditary Master Silversmiths</span>
-              </div>
-            </div>
-
-            <div className="pt-4 sm:pt-6">
-              <Link
-                href="/collections"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-7 sm:px-8 py-3.5 sm:py-4 bg-[#c5a880] text-[#010101] font-sans-editorial text-xs uppercase tracking-[0.2em] font-bold btn-light-sweep hover:bg-[#ffffff] transition-colors"
-              >
-                <span>Explore Collection</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-          </motion.div>
-        </div>
+          {/* Main CTA */}
+          <div className="pt-2 sm:pt-3">
+            <Link
+              href="/collections"
+              className="group inline-flex items-center justify-center gap-3.5 px-8 sm:px-11 py-4 bg-[#c5a880] hover:bg-[#d5bc98] text-[#050505] font-sans-editorial text-xs sm:text-[13px] uppercase tracking-[0.22em] font-bold rounded-[2px] transition-all duration-300 ease-out shadow-[0_2px_12px_rgba(0,0,0,0.5)] hover:shadow-[0_4px_24px_rgba(197,168,128,0.25)]"
+            >
+              <span>EXPLORE COLLECTION</span>
+              <span className="inline-block transition-transform duration-300 ease-out group-hover:translate-x-1.5 font-sans text-sm">
+                →
+              </span>
+            </Link>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

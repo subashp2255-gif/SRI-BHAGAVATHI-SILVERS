@@ -63,14 +63,35 @@ export function Navbar({
     };
   }, [mobileMenuOpen]);
 
+  const isLinkActive = (link: { name: string; href: string }) => {
+    if (link.href === "/") {
+      return pathname === "/";
+    }
+    if (link.name.toLowerCase() === "shop") {
+      return pathname.startsWith("/shop") || pathname.startsWith("/collections");
+    }
+    if (link.href === "/occasions") {
+      return pathname.startsWith("/occasions");
+    }
+    if (link.href === "/customized") {
+      return pathname.startsWith("/customized");
+    }
+    if (link.href === "/about-us") {
+      return pathname.startsWith("/about-us");
+    }
+    if (link.href === "/contact") {
+      return pathname.startsWith("/contact") || pathname.startsWith("/visit-our-store");
+    }
+    return pathname === link.href;
+  };
+
   const navLinks = [
-    { name: "SHOP", href: "/shop", hasMega: true },
-    { name: "COLLECTIONS", href: "/collections" },
-    { name: "OCCASIONS", href: "/occasions" },
-    { name: "CUSTOMIZED", href: "/customized" },
-    { name: "GIFTING", href: "/occasions/gifting" },
-    { name: "OUR STORY", href: "/about-us" },
-    { name: "VISIT US", href: "/visit-our-store" },
+    { name: "Home", href: "/" },
+    { name: "Shop", href: "/shop", hasMega: true },
+    { name: "Occasions", href: "/occasions" },
+    { name: "Customized", href: "/customized" },
+    { name: "About", href: "/about-us" },
+    { name: "Contact", href: "/contact" },
   ];
 
   const megaJewelleryLinks = [
@@ -80,6 +101,19 @@ export function Navbar({
     { name: "Silver Bangles & Kadas", href: "/shop?category=bracelets" },
     { name: "Silver Necklaces & Chokers", href: "/shop?category=necklaces" },
     { name: "Silver Earrings & Jhumkas", href: "/shop?category=earrings" },
+  ];
+
+  const megaCollectionLinks = [
+    { name: "All Collections", href: "/collections", badge: "All Series" },
+    { name: "Sanctum & Temple Series", href: "/collections" },
+    { name: "Royal Silver Heritage", href: "/collections" },
+    { name: "Modern Silver Expressions", href: "/collections" },
+    { name: "New Arrivals 2026", href: "/shop?sort=newest" },
+    { name: "Trending & Best Sellers", href: "/shop?sort=featured" },
+    { name: "Traditional Heritage", href: "/shop?style=Traditional" },
+    { name: "Daily Wear & Minimal", href: "/shop?style=Minimal" },
+    { name: "Bridal & Wedding Collection", href: "/shop?occasion=Wedding" },
+    { name: "Silver Pooja Articles", href: "/pooja-and-articles" },
   ];
 
   const megaPoojaLinks = [
@@ -145,7 +179,7 @@ export function Navbar({
           {/* Desktop Navigation Header */}
           <nav className="hidden xl:flex items-center gap-4 xl:gap-6 relative whitespace-nowrap">
             {navLinks.map((link) => {
-              const isActive = pathname === link.href;
+              const isActive = isLinkActive(link);
               if (link.hasMega) {
                 return (
                   <div
@@ -156,12 +190,18 @@ export function Navbar({
                   >
                     <Link
                       href={link.href}
-                      className={`font-sans-editorial text-[12px] uppercase tracking-[0.18em] transition-colors flex items-center gap-1 py-1 whitespace-nowrap ${
+                      className={`font-sans-editorial text-[12px] uppercase tracking-[0.18em] transition-colors relative flex items-center gap-1.5 py-1 whitespace-nowrap ${
                         shopMegaOpen || isActive ? "text-[#010101] font-bold" : "text-[#444748] hover:text-[#010101]"
                       }`}
                     >
-                      {link.name}
+                      <span>{link.name}</span>
                       <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${shopMegaOpen ? "rotate-180" : ""}`} />
+                      {isActive && (
+                        <motion.div
+                          layoutId="navIndicator"
+                          className="absolute bottom-0 left-0 w-full h-[2px] bg-[#725b38]"
+                        />
+                      )}
                     </Link>
 
                     {/* Desktop Mega Menu Dropdown */}
@@ -173,14 +213,22 @@ export function Navbar({
                           initial="hidden"
                           animate="visible"
                           exit="exit"
-                          className="fixed top-[112px] left-0 w-full bg-[#fbf9f4]/98 backdrop-blur-xl border-b border-t border-[#e8e8e8] shadow-2xl z-50 py-8 px-6 lg:px-12"
+                          className="fixed top-[112px] left-0 w-full bg-[#fbf9f4]/98 backdrop-blur-xl border-b border-t border-[#e8e8e8] shadow-2xl z-50 py-8 px-6 lg:px-12 whitespace-normal"
                         >
                           <div className="max-w-7xl mx-auto grid grid-cols-5 gap-8">
-                            {/* Column 1: Silver Jewellery */}
+                            {/* Column 1: All Jewellery */}
                             <div className="flex flex-col space-y-3">
-                              <h3 className="font-serif-luxury text-sm font-bold uppercase tracking-widest text-[#010101] pb-2 border-b border-[#e8e8e8]">
-                                Silver Jewellery
-                              </h3>
+                              <div className="flex items-center justify-between pb-2 border-b border-[#e8e8e8]">
+                                <h3 className="font-serif-luxury text-sm font-bold uppercase tracking-widest text-[#010101]">
+                                  All Jewellery
+                                </h3>
+                                <Link
+                                  href="/shop"
+                                  className="text-[11px] font-sans-editorial text-[#725b38] hover:underline font-semibold"
+                                >
+                                  View All →
+                                </Link>
+                              </div>
                               <ul className="space-y-2">
                                 {megaJewelleryLinks.map((item) => (
                                   <li key={item.name}>
@@ -195,49 +243,46 @@ export function Navbar({
                               </ul>
                             </div>
 
-                            {/* Column 2: Silver Idols & Sacred */}
+                            {/* Column 2: Collections */}
                             <div className="flex flex-col space-y-3">
-                              <h3 className="font-serif-luxury text-sm font-bold uppercase tracking-widest text-[#010101] pb-2 border-b border-[#e8e8e8]">
-                                Idols & Sacred
-                              </h3>
+                              <div className="flex items-center justify-between pb-2 border-b border-[#e8e8e8]">
+                                <h3 className="font-serif-luxury text-sm font-bold uppercase tracking-widest text-[#010101] flex items-center gap-1.5">
+                                  <Sparkles className="w-3.5 h-3.5 text-[#c5a880]" />
+                                  Collections
+                                </h3>
+                                <Link
+                                  href="/collections"
+                                  className="text-[11px] font-sans-editorial text-[#725b38] hover:underline font-semibold"
+                                >
+                                  All Series →
+                                </Link>
+                              </div>
                               <ul className="space-y-2">
-                                {megaPoojaLinks.map((item) => (
+                                {megaCollectionLinks.map((item) => (
                                   <li key={item.name}>
                                     <Link
                                       href={item.href}
-                                      className="font-sans-editorial text-xs text-[#444748] hover:text-[#725b38] transition-colors hover:translate-x-1 inline-block transform duration-150"
+                                      className="font-sans-editorial text-xs text-[#444748] hover:text-[#725b38] transition-colors hover:translate-x-1 inline-flex items-center gap-1.5 transform duration-150"
                                     >
-                                      {item.name}
+                                      <span>{item.name}</span>
+                                      {item.badge && (
+                                        <span className="text-[9px] uppercase px-1.5 py-0.5 bg-[#f0eee9] text-[#725b38] font-bold rounded-sm border border-[#e8e8e8]">
+                                          {item.badge}
+                                        </span>
+                                      )}
                                     </Link>
                                   </li>
                                 ))}
                               </ul>
                             </div>
 
-                            {/* Column 3: Coins & Gifts */}
+                            {/* Column 3: Shop By Style */}
                             <div className="flex flex-col space-y-3">
-                              <h3 className="font-serif-luxury text-sm font-bold uppercase tracking-widest text-[#010101] pb-2 border-b border-[#e8e8e8]">
-                                Bullion & Gifts
-                              </h3>
-                              <ul className="space-y-2">
-                                {megaGiftsLinks.map((item) => (
-                                  <li key={item.name}>
-                                    <Link
-                                      href={item.href}
-                                      className="font-sans-editorial text-xs text-[#444748] hover:text-[#725b38] transition-colors hover:translate-x-1 inline-block transform duration-150"
-                                    >
-                                      {item.name}
-                                    </Link>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-
-                            {/* Column 4: Shop By Style */}
-                            <div className="flex flex-col space-y-3">
-                              <h3 className="font-serif-luxury text-sm font-bold uppercase tracking-widest text-[#010101] pb-2 border-b border-[#e8e8e8]">
-                                Shop by Style
-                              </h3>
+                              <div className="flex items-center justify-between pb-2 border-b border-[#e8e8e8]">
+                                <h3 className="font-serif-luxury text-sm font-bold uppercase tracking-widest text-[#010101]">
+                                  Shop by Style
+                                </h3>
+                              </div>
                               <ul className="space-y-2">
                                 {megaStylesLinks.map((item) => (
                                   <li key={item.name}>
@@ -252,31 +297,75 @@ export function Navbar({
                               </ul>
                             </div>
 
-                            {/* Column 5: Shop by Budget + Editorial Banner */}
-                            <div className="flex flex-col space-y-4 bg-[#f5f3ee] p-4 border border-[#e8e8e8]">
-                              <h3 className="font-serif-luxury text-xs font-bold uppercase tracking-widest text-[#010101] pb-1 border-b border-[#e8e8e8]">
-                                Shop by Budget
-                              </h3>
-                              <div className="flex flex-wrap gap-1.5">
-                                {megaBudgetLinks.map((b) => (
-                                  <Link
-                                    key={b.name}
-                                    href={b.href}
-                                    className="px-2.5 py-1 bg-[#ffffff] border border-[#e8e8e8] text-[11px] font-sans-editorial text-[#444748] hover:border-[#725b38] hover:text-[#725b38] transition-colors"
-                                  >
-                                    {b.name}
-                                  </Link>
-                                ))}
+                            {/* Column 4: Sacred & Bullion */}
+                            <div className="flex flex-col space-y-3">
+                              <div className="flex items-center justify-between pb-2 border-b border-[#e8e8e8]">
+                                <h3 className="font-serif-luxury text-sm font-bold uppercase tracking-widest text-[#010101]">
+                                  Sacred &amp; Bullion
+                                </h3>
                               </div>
-                              <div className="pt-2 border-t border-[#e8e8e8] flex flex-col gap-1">
-                                <span className="font-serif-luxury text-xs font-semibold text-[#010101]">Sanctum & Temple Series</span>
-                                <p className="font-sans-editorial text-[11px] text-[#725b38]">Consecrated 999 fine silver idols & deepams.</p>
+                              <ul className="space-y-2">
+                                {megaPoojaLinks.slice(0, 3).map((item) => (
+                                  <li key={item.name}>
+                                    <Link
+                                      href={item.href}
+                                      className="font-sans-editorial text-xs text-[#444748] hover:text-[#725b38] transition-colors hover:translate-x-1 inline-block transform duration-150"
+                                    >
+                                      {item.name}
+                                    </Link>
+                                  </li>
+                                ))}
+                                {megaGiftsLinks.slice(0, 2).map((item) => (
+                                  <li key={item.name}>
+                                    <Link
+                                      href={item.href}
+                                      className="font-sans-editorial text-xs text-[#444748] hover:text-[#725b38] transition-colors hover:translate-x-1 inline-block transform duration-150"
+                                    >
+                                      {item.name}
+                                    </Link>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+
+                            {/* Column 5: Featured Spotlight & Budget */}
+                            <div className="flex flex-col space-y-3.5 bg-[#f5f3ee] p-4 border border-[#e8e8e8] whitespace-normal">
+                              <div className="flex items-center justify-between pb-1 border-b border-[#e8e8e8]">
+                                <span className="font-serif-luxury text-xs font-bold uppercase tracking-widest text-[#010101]">
+                                  Featured Series
+                                </span>
+                                <span className="text-[10px] font-sans-editorial uppercase text-[#c5a880] font-bold">2026 Edition</span>
+                              </div>
+                              <div className="flex flex-col gap-1.5">
+                                <span className="font-serif-luxury text-sm font-semibold text-[#010101]">
+                                  Sanctum &amp; Temple Series
+                                </span>
+                                <p className="font-sans-editorial text-[11px] text-[#725b38] leading-relaxed whitespace-normal break-words">
+                                  Consecrated 999 fine silver kalash vessels, Kamakshi deepams, and authentic temple Kemp jewellery.
+                                </p>
                                 <Link
                                   href="/collections"
-                                  className="inline-flex items-center gap-1 font-sans-editorial text-[10px] uppercase font-bold text-[#010101] hover:text-[#725b38] mt-1"
+                                  className="inline-flex items-center gap-1.5 font-sans-editorial text-[11px] uppercase font-bold text-[#010101] hover:text-[#725b38] mt-1 transition-colors group"
                                 >
-                                  View Collection <ArrowRight className="w-3 h-3" />
+                                  <span>Explore Collection</span>
+                                  <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
                                 </Link>
+                              </div>
+                              <div className="pt-2 border-t border-[#e8e8e8] flex flex-col gap-1.5">
+                                <span className="font-serif-luxury text-[11px] font-bold uppercase tracking-wider text-[#010101]">
+                                  Shop by Budget
+                                </span>
+                                <div className="flex flex-wrap gap-1">
+                                  {megaBudgetLinks.map((b) => (
+                                    <Link
+                                      key={b.name}
+                                      href={b.href}
+                                      className="px-2 py-0.5 bg-[#ffffff] border border-[#e8e8e8] text-[10px] font-sans-editorial text-[#444748] hover:border-[#725b38] hover:text-[#725b38] transition-colors"
+                                    >
+                                      {b.name}
+                                    </Link>
+                                  ))}
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -384,15 +473,34 @@ export function Navbar({
                 <Sparkles className="w-4 h-4 text-[#c5a880]" />
                 Explore Sri Bhagavathi Silvers
               </div>
-              <nav className="flex flex-col space-y-2">
+              <nav className="flex flex-col space-y-1">
+                {/* Mobile Home */}
+                <Link
+                  href="/"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`font-serif-luxury text-lg py-2 flex items-center justify-between border-b border-[#f5f3ee] transition-colors ${
+                    pathname === "/" ? "text-[#725b38] font-bold" : "text-[#010101] hover:text-[#725b38]"
+                  }`}
+                >
+                  <span>HOME</span>
+                  <span className="text-[#c5a880] text-sm">→</span>
+                </Link>
+
                 {/* Mobile Shop Accordion */}
                 <div>
                   <button
                     onClick={() => setMobileShopOpen(!mobileShopOpen)}
-                    className="w-full font-serif-luxury text-lg text-[#010101] py-2 flex items-center justify-between border-b border-[#f5f3ee]"
+                    className={`w-full font-serif-luxury text-lg py-2 flex items-center justify-between border-b border-[#f5f3ee] transition-colors ${
+                      pathname.startsWith("/shop") || pathname.startsWith("/collections") ? "text-[#725b38] font-bold" : "text-[#010101]"
+                    }`}
                   >
-                    <span>SHOP</span>
-                    <ChevronDown className={`w-4 h-4 transition-transform ${mobileShopOpen ? "rotate-180" : ""}`} />
+                    <span className="flex items-center gap-2">
+                      <span>SHOP</span>
+                      {(pathname.startsWith("/shop") || pathname.startsWith("/collections")) && (
+                        <span className="text-[9px] font-sans-editorial uppercase tracking-wider bg-[#725b38] text-white px-1.5 py-0.5 rounded-none font-normal">Active</span>
+                      )}
+                    </span>
+                    <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${mobileShopOpen ? "rotate-180" : ""}`} />
                   </button>
                   <AnimatePresence>
                     {mobileShopOpen && (
@@ -400,86 +508,145 @@ export function Navbar({
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
-                        className="pl-4 py-2 space-y-3 bg-[#f5f3ee] border-b border-[#e8e8e8] my-1"
+                        className="pl-3 pr-2 py-3 space-y-3 bg-[#f5f3ee] border-b border-[#e8e8e8] my-1"
                       >
-                        <div className="space-y-1">
-                          <span className="font-sans-editorial text-[10px] uppercase font-bold text-[#725b38]">Jewellery</span>
-                          {megaJewelleryLinks.slice(0, 4).map((j) => (
-                            <Link key={j.name} href={j.href} onClick={() => setMobileMenuOpen(false)} className="block text-xs text-[#444748] py-0.5">
-                              {j.name}
+                        {/* Section 1: All Jewellery / Products */}
+                        <div className="space-y-1.5">
+                          <div className="flex items-center justify-between">
+                            <span className="font-sans-editorial text-[10px] uppercase font-bold text-[#725b38] tracking-wider">
+                              All Jewellery
+                            </span>
+                            <Link
+                              href="/shop"
+                              onClick={() => setMobileMenuOpen(false)}
+                              className="text-[10px] font-sans-editorial font-bold text-[#010101] hover:underline"
+                            >
+                              View All Shop →
                             </Link>
-                          ))}
+                          </div>
+                          <div className="grid grid-cols-2 gap-1 pt-0.5">
+                            {megaJewelleryLinks.map((j) => (
+                              <Link
+                                key={j.name}
+                                href={j.href}
+                                onClick={() => setMobileMenuOpen(false)}
+                                className="block text-xs text-[#444748] py-0.5 hover:text-[#725b38]"
+                              >
+                                {j.name}
+                              </Link>
+                            ))}
+                          </div>
                         </div>
-                        <div className="space-y-1">
-                          <span className="font-sans-editorial text-[10px] uppercase font-bold text-[#725b38]">Idols & Pooja</span>
-                          {megaPoojaLinks.slice(0, 3).map((p) => (
-                            <Link key={p.name} href={p.href} onClick={() => setMobileMenuOpen(false)} className="block text-xs text-[#444748] py-0.5">
-                              {p.name}
+
+                        {/* Section 2: Collections */}
+                        <div className="space-y-1.5 pt-2 border-t border-[#e2dfd7]">
+                          <div className="flex items-center justify-between">
+                            <span className="font-sans-editorial text-[10px] uppercase font-bold text-[#725b38] tracking-wider flex items-center gap-1">
+                              <Sparkles className="w-3 h-3 text-[#c5a880]" />
+                              Collections
+                            </span>
+                            <Link
+                              href="/collections"
+                              onClick={() => setMobileMenuOpen(false)}
+                              className="text-[10px] font-sans-editorial font-bold text-[#010101] hover:underline"
+                            >
+                              All Collections →
                             </Link>
-                          ))}
+                          </div>
+                          <div className="space-y-1 pt-0.5">
+                            {megaCollectionLinks.slice(0, 7).map((c) => (
+                              <Link
+                                key={c.name}
+                                href={c.href}
+                                onClick={() => setMobileMenuOpen(false)}
+                                className="flex items-center justify-between text-xs text-[#444748] py-0.5 hover:text-[#725b38]"
+                              >
+                                <span>{c.name}</span>
+                                {c.badge && (
+                                  <span className="text-[9px] uppercase px-1 py-0.2 bg-[#ffffff] text-[#725b38] font-semibold border border-[#e8e8e8]">
+                                    {c.badge}
+                                  </span>
+                                )}
+                              </Link>
+                            ))}
+                          </div>
                         </div>
-                        <div className="space-y-1">
-                          <span className="font-sans-editorial text-[10px] uppercase font-bold text-[#725b38]">Coins & Bullion</span>
-                          {megaGiftsLinks.map((g) => (
-                            <Link key={g.name} href={g.href} onClick={() => setMobileMenuOpen(false)} className="block text-xs text-[#444748] py-0.5">
-                              {g.name}
+
+                        {/* Section 3: Sacred & Bullion Quick Links */}
+                        <div className="space-y-1.5 pt-2 border-t border-[#e2dfd7]">
+                          <span className="font-sans-editorial text-[10px] uppercase font-bold text-[#725b38] tracking-wider">
+                            Sacred &amp; Bullion
+                          </span>
+                          <div className="grid grid-cols-2 gap-1 pt-0.5">
+                            <Link
+                              href="/pooja-and-articles"
+                              onClick={() => setMobileMenuOpen(false)}
+                              className="text-xs text-[#444748] py-0.5 hover:text-[#725b38]"
+                            >
+                              Silver Idols &amp; Pooja
                             </Link>
-                          ))}
+                            <Link
+                              href="/shop?category=coins"
+                              onClick={() => setMobileMenuOpen(false)}
+                              className="text-xs text-[#444748] py-0.5 hover:text-[#725b38]"
+                            >
+                              999 Pure Coins
+                            </Link>
+                          </div>
                         </div>
                       </motion.div>
                     )}
                   </AnimatePresence>
                 </div>
 
-                <Link
-                  href="/collections"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="font-serif-luxury text-lg text-[#010101] hover:text-[#725b38] transition-colors py-2 flex items-center justify-between border-b border-[#f5f3ee]"
-                >
-                  <span>COLLECTIONS</span>
-                  <span className="text-[#c5a880] text-sm">→</span>
-                </Link>
+                {/* Mobile Occasions */}
                 <Link
                   href="/occasions"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="font-serif-luxury text-lg text-[#010101] hover:text-[#725b38] transition-colors py-2 flex items-center justify-between border-b border-[#f5f3ee]"
+                  className={`font-serif-luxury text-lg py-2 flex items-center justify-between border-b border-[#f5f3ee] transition-colors ${
+                    pathname.startsWith("/occasions") ? "text-[#725b38] font-bold" : "text-[#010101] hover:text-[#725b38]"
+                  }`}
                 >
                   <span>OCCASIONS</span>
                   <span className="text-[#c5a880] text-sm">→</span>
                 </Link>
+
+                {/* Mobile Customized */}
                 <Link
                   href="/customized"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="font-serif-luxury text-lg text-[#010101] hover:text-[#725b38] transition-colors py-2 flex items-center justify-between border-b border-[#f5f3ee]"
+                  className={`font-serif-luxury text-lg py-2 flex items-center justify-between border-b border-[#f5f3ee] transition-colors ${
+                    pathname.startsWith("/customized") ? "text-[#725b38] font-bold" : "text-[#010101] hover:text-[#725b38]"
+                  }`}
                 >
                   <span className="flex items-center gap-2">
-                    CUSTOMIZED
+                    <span>CUSTOMIZED</span>
                     <span className="text-[10px] font-sans-editorial uppercase tracking-wider bg-[#725b38] text-white px-1.5 py-0.5 font-normal">Atelier</span>
                   </span>
                   <span className="text-[#c5a880] text-sm">→</span>
                 </Link>
-                <Link
-                  href="/shop?category=coins"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="font-serif-luxury text-lg text-[#010101] hover:text-[#725b38] transition-colors py-2 flex items-center justify-between border-b border-[#f5f3ee]"
-                >
-                  <span>GIFTING</span>
-                  <span className="text-[#c5a880] text-sm">→</span>
-                </Link>
+
+                {/* Mobile About */}
                 <Link
                   href="/about-us"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="font-serif-luxury text-lg text-[#010101] hover:text-[#725b38] transition-colors py-2 flex items-center justify-between border-b border-[#f5f3ee]"
+                  className={`font-serif-luxury text-lg py-2 flex items-center justify-between border-b border-[#f5f3ee] transition-colors ${
+                    pathname.startsWith("/about-us") ? "text-[#725b38] font-bold" : "text-[#010101] hover:text-[#725b38]"
+                  }`}
                 >
-                  <span>OUR STORY</span>
+                  <span>ABOUT</span>
                   <span className="text-[#c5a880] text-sm">→</span>
                 </Link>
+
+                {/* Mobile Contact */}
                 <Link
-                  href="/visit-our-store"
+                  href="/contact"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="font-serif-luxury text-lg text-[#010101] hover:text-[#725b38] transition-colors py-2 flex items-center justify-between border-b border-[#f5f3ee]"
+                  className={`font-serif-luxury text-lg py-2 flex items-center justify-between border-b border-[#f5f3ee] transition-colors ${
+                    pathname.startsWith("/contact") || pathname.startsWith("/visit-our-store") ? "text-[#725b38] font-bold" : "text-[#010101] hover:text-[#725b38]"
+                  }`}
                 >
-                  <span>VISIT US</span>
+                  <span>CONTACT</span>
                   <span className="text-[#c5a880] text-sm">→</span>
                 </Link>
               </nav>
