@@ -160,9 +160,11 @@ export function NeedHelpChoosingSection() {
               {CONCIERGE_SLIDES.map((_, idx) => (
                 <button
                   key={idx}
+                  type="button"
                   onClick={() => setCurrentSlide(idx)}
                   aria-label={`Go to concierge slide ${idx + 1}`}
                   className="py-2 px-1 focus:outline-none"
+                  suppressHydrationWarning
                 >
                   <span
                     className={`block h-1.5 rounded-full transition-all duration-300 ${

@@ -47,6 +47,7 @@ export function TrendingCarousel({ onQuickView }: TrendingCarouselProps) {
 
           <div className="flex items-center gap-2 sm:gap-3">
             <button
+              type="button"
               suppressHydrationWarning
               onClick={scrollLeft}
               aria-label="Scroll left"
@@ -55,6 +56,7 @@ export function TrendingCarousel({ onQuickView }: TrendingCarouselProps) {
               <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
             <button
+              type="button"
               suppressHydrationWarning
               onClick={scrollRight}
               aria-label="Scroll right"
