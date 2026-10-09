@@ -32,8 +32,8 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Brand Logo Header */}
         <div className="flex items-center gap-3.5 sm:gap-4 mb-8 sm:mb-10 pb-5 sm:pb-6 border-b border-[#e8e8e8]">
-          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden bg-[#ffffff] border border-[#c5a880] p-1 shadow-sm flex items-center justify-center shrink-0">
-            <img src="/logo-emblem.png" alt="Sri Bagavathi Silvers Emblem Logo" className="w-full h-full object-contain" />
+          <div className="shrink-0 flex items-center justify-center">
+            <img src="/logo-emblem.png" alt="Sri Bagavathi Silvers Emblem Logo" className="h-11 sm:h-14 w-auto object-contain" />
           </div>
           <div className="flex flex-col">
             <span className="font-serif-luxury text-lg sm:text-2xl tracking-[0.15em] uppercase text-[#010101] font-semibold leading-tight">
